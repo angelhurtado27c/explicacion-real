@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="es">
+	<head>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+		<title>Document</title>
+		<link rel="stylesheet" href="css/log_in.css">
+		<link rel="shorcut icon" type="image/x-icon" href="css/img/ico.svg">
+	</head>
+	<body>
+		<h1>Registrarme</h1>
+		<form action="/sign_in" method="POST">
+			<input type="text" name="user_name"
+				<% if (user_name) { %>
+					value="<%= user_name %>"
+				<% } %>
+			placeholder="Nombre de usuario" required autofocus>
+			<% if (err.name) { %>
+				<p><%= err.name %></p>
+			<% } %>
+			<input type="password" name="pass" placeholder="Contraseña" required>
+			<% if (err.pass_match) { %>
+				<p><%= err.pass_match %></p>
+			<% } %>
+			<input type="password" name="confirm_pass" placeholder="Confirmar contraseña" required>
+			<% if (err.pass_length) { %>
+				<p><%= err.pass_length %></p>
+			<% } %>
+			<input type="submit" value="Registrarse">
+		</form>
+		<div class="link">
+			<a href="/log_in">Iniciar sesión</a>
+		</div>
+	</body>
+</html>

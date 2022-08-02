@@ -21,14 +21,14 @@
 				<a href="/">Inicio</a>
 				<a href="#$suggestions">Otros articulos</a>
 				<a href="#$ontact">Redes</a>
-				<% if (auth) { %>
+				<% if (is_author) { %>
 					<a href="/log_out">Cerrar sesión</a>
 				<% } %>
 			</nav>
 		</header>
 		<main>
 			<div>
-				<% if (auth) { %>
+				<% if (is_author) { %>
 					<div class="options">
 						<label for="$upload_img">
 							<img
@@ -96,7 +96,7 @@
 				<% } %>
 				<article id="$publication"><%- publication.content %></article>
 			</div>
-			<% if (auth) { %>
+			<% if (is_author) { %>
 				<div class="err" id="$err">
 					<div class="list_container">
 						<ul id="$list_err"></ul>
@@ -132,7 +132,7 @@
 				<a href="https://www.youtube.com/channel/UCb636cFJPna9RYNgfPM2R7Q/videos" target="_black">YouTube</a>
 				<a href="https://www.facebook.com/miguel.hurtado.3110" target="_black">facebook</a>
 			</section>
-			<% if (auth) { %>
+			<% if (is_author) { %>
 				<script src="js/create_article.js" type="module"></script>
 			<% } else { %>
 				<script src="js/modules/render_math.js" type="module"></script>

@@ -1,23 +1,28 @@
 const passport = require('passport')
 const LocalStrategy = require('passport-local').Strategy
+const UserModel = require('../models/User')
 
 passport.use(new LocalStrategy({
-	usernameField: 'email',
+	usernameField: 'name',
 	passwordField: 'pass'
-}, (email, pass, done) => {
-	if (email == 'mhurtado2009@hotmail.com') {
-		if (pass == 'Chocolate')
-			return done(null, {email: email})
+}, async (name, pass, done) => {
+	const user = await UserModel.findOne({name})
+	if (user) {
+		const matchPass = await user.matchPass(pass)
+		if (matchPass)
+			return done(null, user) // Guarda al usuario en la sesion del servidor
 		else
-			return done(null, false, {message: 'Contraseña incorrecta'})
+			return done(null, false, {message: 'Revisa la contraseña'})
 	} else
-		return done(null, false, {message: 'Usuario incorrecto'})
+		return done(null, false, {message: 'Revisa el usuario'})
 }))
 
 passport.serializeUser((user, done) => {
-	done(null, user.email)
+	done(null, user.name)
 })
 
-passport.deserializeUser((email, done) => {
-	done(null, {email: email})
+passport.deserializeUser((name, done) => {
+	UserModel.findOne({name}, (err, user) => {
+		done(err, user)
+	})
 })

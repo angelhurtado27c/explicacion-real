@@ -3,112 +3,13 @@
 	<head>
 		<meta charset="UTF-8">
 		<meta name="viewport" content="width=device-width, initial-scale=1.0">
-		<title>Matemático - Miguel Ángel Hurtado Benavides</title>
-		<link rel="stylesheet" href="css/style.css">
-		<link rel="shorcut icon" type="image/x-icon" href="css/img/ico.svg">
-
-		<!--KaTeX-->
-		<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/katex.min.css" integrity="sha384-AfEj0r4/OFrOo5t7NnNe46zW/tFgW6x/bCJG8FqQCEo3+Aro6EYUG4+cU+KJWu/X" crossorigin="anonymous">
-		<!-- The loading of KaTeX is deferred to speed up page rendering -->
-		<script defer src="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/katex.min.js" integrity="sha384-g7c+Jr9ZivxKLnZTDUhnkOnsh30B4H0rpLUpJ4jAIKs4fnJI+sEnkvrMWph2EDg4" crossorigin="anonymous"></script>
-		<!-- To automatically render math in text elements, include the auto-render extension: -->
-    	<script defer src="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/contrib/auto-render.min.js" integrity="sha384-mll67QQFJfxn0IYznZYonOWZ644AWYC+Pt2cHqMaRhXVrursRwvLnLaebdGIlYNa" crossorigin="anonymous"
-			onload="renderMathInElement(document.body);"></script>
+		<title>Document</title>
 	</head>
 	<body>
-		<header>
-			<div class="center">
-				<nav>
-					<a href="#$publications">Publicaciones</a>
-					<a href="#$recognitions">Reconosimientos</a>
-					<a href="#$contact">Contacto</a>
-					<% if (auth) { %>
-						<a href="/log_out">Cerrar sesión</a>
-					<% } %>
-				</nav>
-				<section class="presentation">
-					<img id="$imgProfile" src="img/Miguel.png" alt="Miguel Ángel Hurtado Benavides" class="img_author">
-					<h1>Miguel Ángel Hurtado Benavides</h1>
-					<h2>Profesor de Matemáticas</h2>
-				</section>
+		<% for (let publication of publications) { %>
+			<div>
+				<%= publication.title %>
 			</div>
-		</header>
-		<main>
-			<%#
-				Counting the number of posts by type
-				to define the style to use
-			%>
-			<% let n_articles = auth ? 1 : 0 %>
-			<% let n_recognitions = auth ? 1 : 0 %>
-			<% for (let p of publications) { %>
-				<% if (p.type == 'article') { %>
-					<% n_articles++ %>
-				<% } else { %>
-					<% n_recognitions++ %>
-				<% } %>
-			<% } %>
-			<section class="publications" id="$publications">
-				<h2>Publicaciones</h2>
-				<div 
-					class="center
-						<% if (n_articles < 3) { %>
-							<%= 'justify_content_center' %>
-						<% } %>
-					"
-				>
-					<% if (auth) { %>
-						<form action="/new" method="POST" class="add">
-							<input type="hidden" name="type" value="article">
-							<input type="submit" value="Agregar">
-						</form>
-					<% } %>
-					<% publications.forEach(publication => { %>
-						<% if (publication.type == 'article') { %>
-							<article class="publication">
-								<a href="/<%= publication.url %>"><img src="/<%= publication.img_miniature ? `uploads_img/${publication.img_miniature}` : 'img/img_miniature_default.jpg'  %> " alt="a"></a>
-								<div class="content">
-									<h2><a href="/<%= publication.url %>"><%= publication.title %></a></h2>
-									<p><%= publication.description %></p>
-								</div>
-							</article>
-						<% } %>
-					<% }) %>
-				</div>
-			</section>
-			<section class="recognitions" id="$recognitions">
-				<h2>Reconocimientos</h2>
-				<div 
-					class="center
-						<% if (n_articles < 3) { %>
-							<%= 'justify_content_center' %>
-						<% } %>
-					"
-				>
-					<% if (auth) { %>
-						<form action="/new" method="POST" class="add">
-							<input type="hidden" name="type" value="recognition">
-							<input type="submit" value="Agregar">
-						</form>
-					<% } %>
-					<% publications.forEach(publication => { %>
-						<% if (publication.type == 'recognition') { %>
-							<article class="recognition">
-								<a href="/<%= publication.url %>"><img src="/<%= publication.img_miniature ? `uploads_img/${publication.img_miniature}` : 'img/img_miniature_default.jpg'  %> " alt="a"></a>
-								<div class="content">
-									<h2><a href="/<%= publication.url %>"><%= publication.title %></a></h2>
-									<p><%= publication.description %></p>
-								</div>
-							</article>
-						<% } %>
-					<% }) %>
-				</div>
-			</section>
-		</main>
-		<footer>
-			<div class="center" id="$contact">
-				<a href="https://www.youtube.com/channel/UCb636cFJPna9RYNgfPM2R7Q/videos" target="_black">YouTube</a>
-				<a href="https://www.facebook.com/miguel.hurtado.3110" target="_black">facebook</a>
-			</div>
-		</footer>
+		<% } %> 
 	</body>
 </html>

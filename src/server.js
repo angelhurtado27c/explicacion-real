@@ -33,7 +33,9 @@ app.use((req, res, next) => {
 })
 
 // Routes
-app.use(require('./routes/routes'))
+app.use(require('./routes/log_in.routes'))
+app.use(require('./routes/publication.routes'))
+app.use(require('./routes/user_profile.routes'))
 
 app.listen(app.get('PORT'), () => {
 	console.log(`Server on port ${app.get('PORT')}`)

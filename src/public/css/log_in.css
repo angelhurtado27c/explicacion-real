@@ -1,0 +1,97 @@
+:root {
+	--colorA: #2B4162;
+	--colorB: #307351;
+	--colorC: #F6F0ED;
+	--colorD: #370C06;
+}
+
+* {
+	margin: 0;
+	padding: 0;
+	box-sizing: border-box;
+	font-family: Arial, Helvetica, sans-serif;
+}
+
+
+
+
+/* --- --- form --- --- */
+
+body {
+	background-color: var(--colorA);
+	position: absolute;
+	top: 0;
+	bottom: 0;
+	left: 0;
+	right: 0;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	display: flex;
+	flex-flow: column;
+}
+
+h1 {
+	color: var(--colorC);
+	margin-bottom: 20px;
+}
+
+form {
+	width: 300px;
+	background-color: var(--colorC);
+	padding-top: 20px;
+	border-radius: 7px;
+}
+
+input {
+	background-color: transparent;
+	display: block;
+	width: calc(100% - 40px);
+	padding: 15px;
+	border: none;
+	border-bottom: 1px solid var(--colorB);
+	color: var(--colorD);
+	font-family: Arial, Helvetica, sans-serif;
+	font-size: 16px;
+	margin: auto;
+	margin-bottom: 20px;
+	outline: none;
+}
+
+p {
+	text-align: right;
+	color: var(--colorA);
+	margin-bottom: 20px;
+}
+
+[type=submit] {
+	border: none;
+	width: 100%;
+	margin: 0;
+	background-color: var(--colorB);
+	color: var(--colorC);
+	border-radius: 0 0 7px 7px;
+	cursor: pointer;
+}
+
+[type=submit]:hover {
+	text-decoration: underline;
+}
+
+.link {
+	width: 300px;
+	text-align: right;
+}
+
+a {
+	color: var(--colorC);
+	text-decoration: none;
+	transition: all .3s ease;
+	border-radius: 7px;
+	display: inline-block;
+	margin: 10px 20px;
+}
+
+a:hover {
+	text-decoration: underline;
+}

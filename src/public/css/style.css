@@ -91,6 +91,7 @@ main > section > h2 {
 
 .publication,
 .recognition {
+	width: 100%;
 	max-width: 300px;
 	height: 463.5px;
 	border-radius: 7px;
