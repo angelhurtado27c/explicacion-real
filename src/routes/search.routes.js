@@ -9,13 +9,19 @@ const ignoreAccents = require('../helpers/ignoreAccents.helpers')
 function search(query, posts_fields, users_fields) {return new Promise(res => {
 	query = query.replace(/^\s+/,'')
 	query = query.replace(/\s+$/,'')
-	const fields = query.replace(/\s+/ig)
+	query = query.replace(/\\/g,'\\\\')
+	query = query.replace(/\|/g,'\\\|')
+
+	query = query.split(/\s+/)
+	let first_word = query[0]
+	query = query.join('|')
+	// query = query.replace(/\s+/g,'|')
+
+	query = escSpecialChars(query)
 	query = ignoreAccents(query)
 	try {
-		query = new RegExp(
-			`(${query.replace(/\s+/ig,'|')})`,
-			'gi'
-		)
+		query = new RegExp(`(${query})`, 'gi')
+		first_word = new RegExp(`^${first_word}`, 'i')
 	} catch { console.log(`Error al completar "${query}`) }
 
 	const results = {posts: [], users: []}
@@ -23,7 +29,11 @@ function search(query, posts_fields, users_fields) {return new Promise(res => {
 	let end_users = false
 
 	PublicationModel
-		.find({public: true, title: query})
+		.find({$and: [
+			{title: first_word},
+			{public: true, title: query}
+		]})
+		// .find({public: true, title: query})
 		.limit(6)
 		.select(posts_fields)
 		.then(posts => {
@@ -41,7 +51,10 @@ function search(query, posts_fields, users_fields) {return new Promise(res => {
 		})
 
 	UserModel
-		.find({name: query})
+		.find({$and: [
+			{name: query},
+			{name: first_word}
+		]})
 		.limit(6)
 		.select(users_fields)
 		.then(users => {
@@ -59,6 +72,24 @@ function search(query, posts_fields, users_fields) {return new Promise(res => {
 		})
 })}
 
+function escSpecialChars(txt) {
+	// const chars = '()[]{}.^$+*?'
+	const chars = '()[]{}.^$+*?,=!<:'
+	for (let char of chars) {
+		let r_e = new RegExp(`\\${char}`, 'g')
+		txt = txt.replace(r_e, `\\${char}`)
+	}
+	return txt
+	/*
+		https://developer.mozilla.org/es/docs/Web/JavaScript/Guide/Regular_Expressions
+		\, ., \cX, \d, \D, \f, \n, \r, \s, \S, \t, \v, \w, \W, \0, \xhh, \uhhhh, \uhhhhh, [\b]	
+		^, $, x(?=y), x(?!y), (?<=y)x, (?<!y)x, \b, \B	
+		(x), (?:x), (?<Name>x), x|y, [xyz], [^xyz], \Number	
+		*, +, ?, x{n}, x{n,}, x{n,m}	
+		\p{UnicodeProperty}, \P{UnicodeProperty}
+*/
+}
+
 
 
 
@@ -75,7 +106,7 @@ router.get('/complete', async (req, res) => {
 
 	const users = []
 	for (let user of matches.users)
-		users.push(`${user.name} - ${user.job}`)
+		users.push(`${user.name} - ${user.job ? user.job : 'Usuario'}`)
 	matches.users = users
 
 	res.json(matches)
@@ -93,7 +124,7 @@ router.get('/search', async (req, res) => {
 		home: true,
 		my_profile: auth ? req.user._id : false,
 		log_in: auth ? 'log_out' : 'log_in',
-		search_value: query.replace(/\+/g, ' ')
+		search_value: query
 	}
 
 	res.render('index', {Nav, posts: matches})

@@ -1,26 +1,71 @@
 <link rel="stylesheet" href="/css/components/presentation.css">
 
-<section class="presentation">
-	<label for="$file_img_profile">
-		<%# if (user.profile_img) { %>
+<section
+	class="presentation"
+	<% if (user.is_author) { %>
+		style="padding-bottom: 20px;"
+	<% } %>
+>
+	<img
+		src=<%= user.cover_img ? `/uploads_img/${user.cover_img}` : '/img/background.webp' %>
+		id="$presentation_background"
+	>
+
+	<div class="img_profile">
+		<% if (user.profile_img || user.is_author) { %>
 			<img
 				id="$imgProfile"
-				src="/uploads_img/<%= user.profile_img %>"
+				src=<%= 
+					user.profile_img
+					? `/uploads_img/${user.profile_img}`
+					: '/img/ico/user.svg'
+				%>
 				alt="<%= user.name %>"
 				class="img_author"
 			>
-		<%# } %>
-	</label>
-	<% if (user.is_author) { %>
-		<p id="$img_err"></p>
-		<input type="file" id="$file_img_profile">
-	<% } %>
-	<h1 class="editable" id="$name"><%= user.name %></h1>
+		<% } %>
+
+		<% if (user.is_author) { %>
+			<label for="$file_img_profile">
+				<img src="/img/ico/camera.svg">
+			</label>
+			<input type="file" id="$file_img_profile">
+		<% } %>
+	</div>
+
+	<div class="user_name">
+		<h1 id="$name"><%= user.name %></h1>
+		<%- include('edit_form.ejs', {
+			id_input: '$input_name',
+			input_placeholder: 'Nombre',
+			id_btn_edit_cancel: '$btn_name_edit_cancel',
+			id_btn_ok: '$btn_name_ok'
+		}) %>
+	</div>
+
 	<% if (user.job) { %>
-		<h2 class="editable" id="$job"><%= user.job %></h2>
+		<div class="user_job">
+			<h2 id="$job"><%= user.job %></h2>
+			<%- include('edit_form.ejs', {
+				id_input: '$input_job',
+				input_placeholder: 'Profesión',
+				id_btn_edit_cancel: '$btn_job_edit_cancel',
+				id_btn_ok: '$btn_job_ok'
+			}) %>
+		</div>
+	<% } %>
+
+	<% if (user.is_author) { %>
+		<div class="img_background">
+			<label for="$file_img_background">
+				<img src="/img/ico/camera.svg"> Fondo
+			</label>
+			<input type="file" id="$file_img_background">
+		</div>
 	<% } %>
 </section>
 
 <% if (user.is_author) { %>
 	<script src="/js/img_author.js" type="module"></script>
 <% } %>
+<script src="/js/view_img_author.js" type="module"></script>

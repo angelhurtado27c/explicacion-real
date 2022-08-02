@@ -54,13 +54,13 @@ multer_upload_img = multer({
 	storage, // storage: name
 	limits: {fileSize: 1000000}, // 1Mb
 	fileFilter: (req, file, cb) => {
-		const filetypes = /jpeg|jpg|png|gif/
-		const mime_type = filetypes.test(file.mimetype)
-		const ext_name = filetypes.test(
-			extname(file.originalname).toLowerCase()
-		)
-		if (mime_type && ext_name)
-			return cb(null, true)
+		let ext = /\/\w+$/.exec(file.mimetype)
+		if (!ext) return cb('bad format')
+		ext = ext[0].substr(1)
+
+		const valid_format = /jpeg|png|gif|webp/.test(ext)
+		// heif y tiff deben convertirse de formato
+		if (valid_format) return cb(null, true)
 		cb('bad format')
 	}
 	//dest: `${__dirname}/public/uploads_img`}

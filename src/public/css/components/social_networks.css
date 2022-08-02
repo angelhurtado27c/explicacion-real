@@ -1,3 +1,9 @@
+/*
+body {
+	min-height: calc(100vh - 45px);
+}
+*/
+
 .social_networks {
 	background-color: var(--colorB);
 	padding: 20px;
@@ -35,8 +41,6 @@
 	cursor: pointer;
 	outline: none;
 }
-
-.social_networks .i_edit { content: url('/img/ico/new.svg'); }
 
 @media screen and (min-width: 680px) {
 	.social_networks i {
@@ -85,6 +89,8 @@
 	cursor: pointer;
 	font-weight: bold;
 	padding: 10px 0;
+	border: none;
+	height: 44px;
 }
 
 .social_networks form [type=submit] {
@@ -96,6 +102,7 @@
 	cursor: pointer;
 	font-weight: bold;
 	padding: 10px 0;
+	border: none;
 }
 
 .social_networks form .err {

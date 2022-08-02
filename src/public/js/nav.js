@@ -3,6 +3,7 @@
 // Mostrar mensaje no encontrado
 // create_article.js has code that modifies the nav, on line 14
 
+import {render_math} from './modules/render_math.js'
 import ChangeView from './modules/ChangeView.js'
 
 
@@ -124,19 +125,22 @@ class Searcher {
 		let target = e.target
 		if (target == $search_suggestions) return
 
-		if (target.localName == 'img') target = target.parentNode
+		const t_n = target.localName
+		if (t_n == 'img' || t_n == 'span')
+			target = target.parentNode
 		target = target.parentNode
 
 		const s_s = this.search_sugg
 		let i = this.i_preselect_sugg
 		s_s[i != -1 ? i : 0].classList.remove('preselect_sugg')
-		for (i = 0; i < this.search_sugg.length; i++)
+
+		const len = s_s.length
+		for (i = 0; i < len; i++)
 			if (s_s[i] == target) {
 				s_s[i].classList.add('preselect_sugg')
+				this.i_preselect_sugg = i
 				break
 			}
-
-		this.i_preselect_sugg = i
 	}
 
 	searchMouseOutHandler = () => {
@@ -281,8 +285,11 @@ class Searcher {
 			const div_sugg = document.createElement('div')
 
 			const a = document.createElement('a')
-			a.href = '/'
-			a.innerText = sugg
+			const query = sugg.replaceAll('+', '%2b').replaceAll(' ', '+')
+			a.href = `/search?q=${query}`
+			const span = document.createElement('span')
+			span.innerText = sugg
+			a.appendChild(span)
 
 			const imgRowUp = document.createElement('img')
 			imgRowUp.src = '/img/ico/rowUp.svg'
@@ -297,7 +304,7 @@ class Searcher {
 	}
 
 	async getSuggestions() {
-		const query = $search.value.replaceAll(' ', '+')
+		const query = $search.value.replaceAll('+', '%2b').replaceAll(' ', '+')
 		let res = await fetch(`/complete?q=${query}`)
 		return await res.json()
 	}
@@ -306,7 +313,7 @@ class Searcher {
 		if ((e ? e.key == 'Enter' : true) && $search.value) {
 			clearTimeout(this.timeout_search)
 			this.timeout_search = null
-			const query = $search.value.replaceAll(' ', '+')
+			const query = $search.value.replaceAll('+', '%2b').replaceAll(' ', '+')
 			location.href = `/search?q=${query}`
 		}
 	}

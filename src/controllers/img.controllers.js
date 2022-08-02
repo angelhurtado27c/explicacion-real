@@ -6,23 +6,35 @@ const {
 	delete_img
 } = require('../helpers/img.helpers')
 
+
+
+
 module.exports = async (req, res) => {
 	try {
 		const img_name = await upload_img(req, res)
 		switch (req.body.destination) {
-			case 'img_miniature':
-				img_miniature(req, res, img_name)
-				break
 			case 'img_author':
 				img_author(req, res, img_name)
 				break
+			case 'img_author_cover':
+				img_author_cover(req, res, img_name)
+				break
+			/*
+			case 'post_cover_img':
+				img_miniature(req, res, img_name)
+				break
+			*/
 			default:
 				await delete_img(img_name)
 				res.json({})
 		}
-	} catch(e) { res.json({err: e}) }
+	} catch(e) { res.json({}) }
 }
 
+
+
+
+/*
 async function img_miniature(req, res, img_name) {
 	const url = req.body.url
 	let publication
@@ -44,14 +56,34 @@ async function img_miniature(req, res, img_name) {
 	)
 	res.json(was_img_saved)
 }
+*/
+
+
+
 
 async function img_author(req, res, img_name) {
-	const User = await UserModel.findOne({name: req.user.name})
+	//const User = await UserModel.findOne({name: req.user.name})
 	const was_img_saved = await save_img_to_db(
-		User, 'profile_img', img_name
+		req.user,
+		'profile_img',
+		img_name
 	)
 	res.json(was_img_saved)
 }
+
+
+async function img_author_cover(req, res, img_name) {
+	//const User = await UserModel.findOne({name: req.user.name})
+	const was_img_saved = await save_img_to_db(
+		req.user,
+		'cover_img',
+		img_name
+	)
+	res.json(was_img_saved)
+}
+
+
+
 
 async function save_img_to_db(db, field, img) {
 	try {

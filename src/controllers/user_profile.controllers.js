@@ -11,7 +11,7 @@ userCtrl.user_profile = async (req, res) => {
 
 	const user = await UserModel
 		.findOne({_id: req_user_id})
-		.select('profile_img name job social_networks')
+		.select('name job profile_img cover_img social_networks')
 	if (!user)
 		return res.redirect('/')
 
@@ -53,8 +53,7 @@ userCtrl.user_profile = async (req, res) => {
 		my_profile: auth ? (user.is_author ? false : req.user._id) : false,
 		log_in: auth ? 'log_out' : 'log_in'
 	}
-	if (!user.job && user.is_author)
-		user.job = '¿Qué temas trata tu obra (tus trabajos)?'
+	if (!user.job && user.is_author) user.job = 'Profesión'
 	res.render('user_profile', {Nav, user, posts})
 
 

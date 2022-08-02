@@ -58,6 +58,10 @@ input {
 	outline: none;
 }
 
+input[type=password] {
+	filter: blur(5px);
+}
+
 p {
 	text-align: right;
 	color: var(--colorA);

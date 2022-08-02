@@ -83,7 +83,7 @@ class SocialNetworks {
 	}
 
 	in_writing = e => {
-		const element = e.originalTarget
+		const element = e.target
 		const parent = element.parentNode
 		const last = parent.last
 

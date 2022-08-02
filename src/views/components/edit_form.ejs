@@ -1,0 +1,15 @@
+<% if (user.is_author) { %>
+	<form class="minimum">
+		<input
+			type="text"
+			id='<%- id_input %>'
+			placeholder="<%- input_placeholder %>"
+		>
+		<div class="submit minimum">
+			<input type="submit" value="ok" id="<%- id_btn_ok %>">
+			<button class="minimum" type="submit" id='<%- id_btn_edit_cancel %>'>
+				<span class="i_edit"></span>
+			</button>
+		</div>
+	</form>
+<% } %>

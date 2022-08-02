@@ -30,7 +30,13 @@ Arimo
 *::selection {
 	background-color: var(--colorB);
 	color: var(--colorC);
+	text-shadow: none;
 }
+
+body::-webkit-scrollbar { background-color: #24334C; }
+body::-webkit-scrollbar-thumb { background-color: #798292; }
+body::-webkit-scrollbar-thumb:hover { background-color: #66657F; }
+body::-webkit-scrollbar-thumb:active { background-color: #454e5d; }
 
 h1, h2, h3,
 h1 a, h2 a, h3 a {
@@ -39,6 +45,7 @@ h1 a, h2 a, h3 a {
 	font-style: italic;
 }
 
+/*
 h1::first-letter, h2::first-letter, h3::first-letter,
 h1 a::first-letter, h2 a::first-letter, h3 a::first-letter {
 	font-family: 'Pattaya';
@@ -46,6 +53,7 @@ h1 a::first-letter, h2 a::first-letter, h3 a::first-letter {
 	letter-spacing: .5px;
 	font-style: normal;
 }
+*/
 
 input { font-size: 16px; }
 [type=submit] {
@@ -53,7 +61,16 @@ input { font-size: 16px; }
 	font-weight: 500;
 }
 
-body { margin-top: 45px; }
+body {
+	margin-top: 45px;
+	background-color: var(--colorA);
+}
+
+.i_edit {
+	content: url('/img/ico/new.svg');
+	display: inline-block;
+}
+
 /*
 body { margin-top: 44px; }
 */

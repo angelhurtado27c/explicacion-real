@@ -1,0 +1,63 @@
+.msg_all_display {
+	background: radial-gradient(
+		ellipse at center,
+		#2b4162c6 30%,
+		#192539 70%,
+		#131B2B
+	);
+	color: var(--colorD);
+	position: fixed;
+	top: 0;
+	bottom: 0;
+	z-index: 100;
+	width: 100%;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	padding: 20px;
+	opacity: 0;
+}
+
+.msg_all_display div {
+	position: relative;
+	padding: 20px 20px 25px 20px;
+	background-color: var(--colorC);
+	border-radius: 7px;
+	box-shadow: 0 0 50px var(--colorC);
+	min-width: calc(100% - 40px);
+}
+
+@media screen and ( min-width: 430px ) {
+	.msg_all_display div {
+		min-width: 390px;
+	}
+}
+
+.msg_all_display p {
+	max-width: 390px;
+	line-height: 25px;
+}
+
+.msg_all_display button {
+	border: none;
+	background-color: var(--colorB);
+	color: var(--colorC);
+	font-size: 16px;
+	font-weight: 700;
+	padding: 8px 13px;
+	border-radius: 7px;
+	position: absolute;
+	bottom: -17px;
+	right: 30px;
+	cursor: pointer;
+	box-shadow: 0 0 100px var(--colorC);
+	transition: all .3s ease;
+}
+
+.msg_all_display button:hover {
+	background-color: #298254;
+	text-shadow:
+		0 0 40px var(--colorC),
+		0 0 40px var(--colorC)
+	;
+}

@@ -24,6 +24,12 @@
 	padding-left: 15px;
 }
 
+.search_suggestions a > span {
+	display: block;
+	max-height: 40px;
+	overflow: hidden;
+}
+
 .search_suggestions .divRowUp {
 	cursor: pointer;
 	padding: 10px;

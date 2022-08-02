@@ -34,12 +34,18 @@ postCtrl.new_publication = (req, res) => {
 		my_profile: req.user._id,
 		log_in: 'log_out'
 	}
+
 	res.render('publication', {
 		Nav,
 		is_author: true,
 		publication,
 		user: req.user,
-		authors: [],
+		authors: [{
+			_id: req.user._id,
+			name: req.user.name,
+			job: req.user.job,
+			profile_img: req.user.profile_img
+		}],
 		suggestions: false
 	})
 }
@@ -251,6 +257,7 @@ postCtrl.get_publication = async (req, res) => {
 			log_in: auth ? 'log_out' : 'log_in'
 		}
 		//console.log('\n\n\njj Count', await PublicationModel.count())
+
 		return res.render('publication', {
 			Nav,
 			is_author,
