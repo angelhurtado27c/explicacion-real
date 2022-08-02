@@ -2,11 +2,14 @@
 
 <nav>
 	<div class="center_nav">
-		<div class="new" id="$new">
-			<a href="">
-				<i class="i_new"></i>
-			</a>
-		</div>
+		<% if (Nav.new) { %>
+			<div class="new" id="$new">
+				<a href="/<%= Nav.new %>">
+					<i class="i_new"></i>
+				</a>
+			</div>
+		<% } %>
+
 		<form>
 			<button id="$btn_return">
 				<i class="i_return"></i>
@@ -16,11 +19,27 @@
 				<i class="i_search"></i>
 			</button>
 		</form>
+
 		<div class="options" id="$options">
-			<a href="">
-				<i class="i_user">O</i>
+			<% if (Nav.home) { %>
+				<a href="/">
+					<i class="i_home"></i>
+				</a>
+			<% } %>
+
+			<% if (Nav.my_profile) { %>
+				<a href="/p/<%= Nav.my_profile %>">
+					<i class="i_user"></i>
+				</a>
+			<% } %>
+
+			<a href="/<%= Nav.log_in %>">
+				<% if (Nav.log_in == 'log_in') { %>
+					<%= 'Acceder' %>
+				<% } else { %>
+					<%= 'Salir' %>
+				<% } %>
 			</a>
-			<a href="/log_in">Salir</a>
 		</div>
 	</div>
 </nav>

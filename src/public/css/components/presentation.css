@@ -1,0 +1,35 @@
+.presentation {
+	padding: 20px;
+	background-color: var(--colorA);
+	color: var(--colorC);
+	text-align: center;
+	padding: 80px 10px 60px 10px;
+}
+
+.presentation .img_author {
+	width: 200px;
+	border-radius: 100%;
+	border: 2px solid var(--colorC);
+	margin-bottom: 15px;
+}
+
+.presentation h1 {
+	margin-bottom: 5px;
+}
+
+.presentation h2 {
+	font-size: 20px;
+}
+
+
+
+
+@media screen and ( min-width: 720px ) {
+	.presentation h1 {
+		font-size: 35px;
+	}
+
+	.presentation h2 {
+		font-size: 25px;
+	}
+}

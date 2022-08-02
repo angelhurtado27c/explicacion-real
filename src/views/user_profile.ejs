@@ -4,7 +4,8 @@
 		<meta charset="UTF-8">
 		<meta name="viewport" content="width=device-width, initial-scale=1.0">
 		<title>Matemático - Miguel Ángel Hurtado Benavides</title>
-		<link rel="stylesheet" href="/css/style.css">
+		<!--<link rel="stylesheet" href="/css/style.css">-->
+		<link rel="stylesheet" href="/css/standard.css">
 		<link rel="shorcut icon" type="image/x-icon" href="css/img/ico.svg">
 
 		<!--KaTeX-->
@@ -17,100 +18,15 @@
 	</head>
 	<body>
 		<header>
-			<div class="center">
-				<nav>
-					<a href="#$publications">Publicaciones</a>
-					<a href="#$recognitions">Reconosimientos</a>
-					<a href="#$contact">Contacto</a>
-					<% if (is_author) { %>
-						<a href="/log_out">Cerrar sesión</a>
-					<% } else { %>
-						<a href="/log_in">Iniciar sesión</a>
-					<% } %> 
-				</nav>
-				<section class="presentation">
-					<img id="$imgProfile" src="/img/Miguel.png" alt="Miguel Ángel Hurtado Benavides" class="img_author">
-					<h1>Miguel Ángel Hurtado Benavides</h1>
-					<h2>Profesor de Matemáticas</h2>
-				</section>
-			</div>
+			<%- include('components/nav') %>
+			<%- include('components/presentation') %>
 		</header>
 		<main>
-			<%#
-				Counting the number of posts by type
-				to define the style to use
-			%>
-			<% let n_articles = is_author ? 1 : 0 %>
-			<% let n_recognitions = is_author ? 1 : 0 %>
-			<% for (let p of publications) { %>
-				<% if (p.type == 'article') { %>
-					<% n_articles++ %>
-				<% } else { %>
-					<% n_recognitions++ %>
-				<% } %>
-			<% } %>
-			<section class="publications" id="$publications">
-				<h2>Publicaciones</h2>
-				<div 
-					class="center
-						<% if (n_articles < 3) { %>
-							<%= 'justify_content_center' %>
-						<% } %>
-					"
-				>
-					<% if (is_author) { %>
-						<form action="/new" method="POST" class="add">
-							<input type="hidden" name="type" value="article">
-							<input type="submit" value="Agregar">
-						</form>
-					<% } %>
-					<% publications.forEach(publication => { %>
-						<% if (publication.type == 'article') { %>
-							<article class="publication">
-								<a href="/<%= publication.url %>"><img src="/<%= publication.img_miniature ? `uploads_img/${publication.img_miniature}` : 'img/img_miniature_default.jpg'  %> " alt="a"></a>
-								<div class="content">
-									<h2><a href="/<%= publication.url %>"><%= publication.title %></a></h2>
-									<p><%= publication.description %></p>
-								</div>
-							</article>
-						<% } %>
-					<% }) %>
-				</div>
-			</section>
-			<section class="recognitions" id="$recognitions">
-				<h2>Reconocimientos</h2>
-				<div 
-					class="center
-						<% if (n_articles < 3) { %>
-							<%= 'justify_content_center' %>
-						<% } %>
-					"
-				>
-					<% if (is_author) { %>
-						<form action="/new" method="POST" class="add">
-							<input type="hidden" name="type" value="recognition">
-							<input type="submit" value="Agregar">
-						</form>
-					<% } %>
-					<% publications.forEach(publication => { %>
-						<% if (publication.type == 'recognition') { %>
-							<article class="recognition">
-								<a href="/<%= publication.url %>"><img src="/<%= publication.img_miniature ? `uploads_img/${publication.img_miniature}` : 'img/img_miniature_default.jpg'  %> " alt="a"></a>
-								<div class="content">
-									<h2><a href="/<%= publication.url %>"><%= publication.title %></a></h2>
-									<p><%= publication.description %></p>
-								</div>
-							</article>
-						<% } %>
-					<% }) %>
-				</div>
-			</section>
+			<%- include('components/posts_user_profile', {is_author, posts}) %>
+			<%#- include('components/posts_user_profile', {is_author, publications}) %>
 		</main>
 		<footer>
-			<div class="center" id="$contact">
-				<a href="https://www.youtube.com/channel/UCb636cFJPna9RYNgfPM2R7Q/videos" target="_black">YouTube</a>
-				<a href="https://www.facebook.com/miguel.hurtado.3110" target="_black">facebook</a>
-			</div>
+			<%- include('components/social_networks') %>
 		</footer>
 	</body>
 </html>

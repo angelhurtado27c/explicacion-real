@@ -4,7 +4,8 @@
 		<meta charset="UTF-8">
 		<meta name="viewport" content="width=device-width, initial-scale=1.0">
 		<title>Article</title>
-		<link rel="stylesheet" href="css/publication.css">
+		<!--<link rel="stylesheet" href="css/publication.css">-->
+		<link rel="stylesheet" href="/css/standard.css">
 		<link rel="shorcut icon" type="image/x-icon" href="css/img/ico.svg">
 
 		<!--KaTeX-->
@@ -17,124 +18,25 @@
 	</head>
 	<body>
 		<header>
+			<%- include('components/nav') %>
+			<!--
 			<nav>
 				<a href="/">Inicio</a>
 				<a href="#$suggestions">Otros articulos</a>
 				<a href="#$ontact">Redes</a>
-				<% if (is_author) { %>
+				<%# if (is_author) { %>
 					<a href="/log_out">Cerrar sesión</a>
-				<% } %>
+				<%# } %>
 			</nav>
+			-->
 		</header>
+		<!---->
 		<main>
-			<div>
-				<% if (is_author) { %>
-					<div class="options">
-						<label for="$upload_img">
-							<img
-								src="/<%= publication.img_miniature ? `uploads_img/${publication.img_miniature}` : 'img/img_miniature_default.jpg' %>"
-								alt="<%= publication.title %>"
-								id="$miniature_img"
-							>
-						</label>
-						<div class="inputs">
-							<h2>Configuración</h2>
-							<div class="upload_img">
-								<label for="$upload_img">
-									<span class="label">Miniatura</span>
-									<span class="input">Selecionar</span>
-								</label>
-								<p id="$img_err"></p>
-								<input type="file" name="img" id="$upload_img">
-							</div>
-							<div class="type">
-								<label for="$type">Categoría</label>
-								<select id="$type">
-									<% if (publication.type == 'article') { %>
-										<option value="article">Artículo</option>
-										<option value="recognition">Reconosimiento</option>
-									<% } else { %>
-										<option value="recognition">Reconosimiento</option>
-										<option value="article">Artículo</option>
-									<% } %>
-								</select>
-							</div>
-							<div class="public">
-								<label for="$public">Publicación</label>
-								<select id="$public">
-									<% if (publication.public) { %>
-										<option value="1">Pública</option>
-										<option value="0">Privada</option>
-									<% } else { %>
-										<option value="0">Privada</option>
-										<option value="1">Pública</option>
-									<% } %>
-								</select>
-							</div>
-						</div>
-					</div>
-					<div
-						class="delete"
-						<% if (!publication.id) { %>
-							style="display: none;"
-						<% } %>
-					>
-						<button id="$delete">Eliminar</button>
-						<div id="$delete_msg">
-							<div>
-								<p>
-									¿Estas seguro de borrar esta publicación?
-								</p>
-								<button id="$delete_no">No</button>
-								<button id="$delete_ok">Si</button>
-							</div>
-						</div>
-					</div>
-					<div class="textarea">
-						<textarea id="$textarea"><%- publication.content %></textarea>
-					</div>
-				<% } %>
-				<article id="$publication"><%- publication.content %></article>
-			</div>
-			<% if (is_author) { %>
-				<div class="err" id="$err">
-					<div class="list_container">
-						<ul id="$list_err"></ul>
-					</div>
-				</div>
-				<div class="edit">
-					<button id="$save">Guardar</button>
-				</div>
-			<% } %>
+			<%- include('components/post', {is_author, publication}) %>
 		</main>
 		<footer>
-			<section class="suggestions" id="$suggestions">
-				<h2>Sugerencias</h2>
-				<div>
-					<article class="suggestion">
-						<a href=""><img src="/img/img_miniature_default.jpg" alt="a"></a>
-						<h2><a href="">Title Publication</a></h2>
-						<p>Lorem ipsum, dolor sit amet consectetur adipisicing elit. Molestiae nesciunt maxime est perspiciatis, eius omnis veniam fugit itaque consectetur. Ipsum sequi quisquam corrupti a explicabo inventore tempora saepe dignissimos odit.</p>
-					</article>
-					<article class="suggestion">
-						<a href=""><img src="/img/img_miniature_default.jpg" alt="a"></a>
-						<h2><a href="">Title Publication</a></h2>
-						<p>Lorem ipsum, dolor sit amet consectetur adipisicing elit. Molestiae nesciunt maxime est perspiciatis, eius omnis veniam fugit itaque consectetur. Ipsum sequi quisquam corrupti a explicabo inventore tempora saepe dignissimos odit.</p>
-					</article>
-					<article class="suggestion">
-						<a href=""><img src="/img/img_miniature_default.jpg" alt="a"></a>
-						<h2><a href="">Title Publication</a></h2>
-						<p>Lorem ipsum, dolor sit amet consectetur adipisicing elit. Molestiae nesciunt maxime est perspiciatis, eius omnis veniam fugit itaque consectetur. Ipsum sequi quisquam corrupti a explicabo inventore tempora saepe dignissimos odit.</p>
-					</article>
-				</div>
-			</section>
-			<section class="social_networks" id="$ontact">
-				<a href="https://www.youtube.com/channel/UCb636cFJPna9RYNgfPM2R7Q/videos" target="_black">YouTube</a>
-				<a href="https://www.facebook.com/miguel.hurtado.3110" target="_black">facebook</a>
-			</section>
-			<% if (is_author) { %>
-				<script src="js/create_article.js" type="module"></script>
-			<% } %>
+			<%- include('components/suggestions') %>
+			<%- include('components/social_networks') %>
 		</footer>
 	</body>
 </html>

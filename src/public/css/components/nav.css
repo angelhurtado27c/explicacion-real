@@ -4,11 +4,13 @@
 .i_return { content: url('/img/ico/return.svg'); }
 .i_search { content: url('/img/ico/search.svg'); }
 .i_user { content: url('/img/ico/user.svg'); }
+.i_home { content: url('/img/ico/home.svg'); }
 
 .i_new,
 .i_return,
 .i_search,
-.i_user {
+.i_user,
+.i_home {
 	height: 26px;
 	max-width: 26px;
 }
@@ -40,7 +42,7 @@ nav {
 
 
 
-/* --- --- --- phone --- --- --- */
+/* --- --- --- options --- --- --- */
 
 nav .options {
 	width: 200%;
@@ -69,14 +71,14 @@ nav .options a {
 
 /* --- --- --- search --- --- --- */
 
-form {
+nav form {
 	display: flex;
 	border: none;
 	justify-content: center;
 	align-items: center;
 }
 
-form input {
+nav form input {
 	min-width: 0;
 	width: 900%;
 	background-color: transparent;
@@ -88,13 +90,13 @@ form input {
 	transition: all .3s ease;
 }
 
-form input:focus {
+nav form input:focus {
 	border-radius: 7px;
 	border: 1px solid var(--colorC);
 }
 
-form button:first-child,
-form input {
+nav form button:first-child,
+nav form input {
 	display: none;
 	outline: none;
 }
@@ -163,17 +165,17 @@ nav button {
 		width: 150%;
 	}
 
-	form {
+	nav form {
 		border: 1px solid var(--colorC);
 		border-radius: 7px;
 		padding-right: 14px;
 	}
 
-	form:focus {
+	nav form:focus {
 		padding: 20px;
 	}
 
-	form input {
+	nav form input {
 		width: 100%;
 		border-radius: 7px 0 0 7px;
 		border: none;
@@ -181,12 +183,12 @@ nav button {
 		transition: none;
 	}
 
-	form input:focus {
+	nav form input:focus {
 		border-radius: 7px 0 0 7px;
 		border: none;
 	}
 
-	#\$btn_search {
+	nav #\$btn_search {
 		width: auto;
 		height: 100%;
 		display: flex;

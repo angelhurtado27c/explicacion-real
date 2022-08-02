@@ -13,3 +13,16 @@
 }
 
 body { margin-top: 45px; }
+
+
+
+
+/* math */
+
+.parent-katex-display {
+	max-width: 700px;
+	width: 100%;
+	display: block;
+	margin: auto;
+	overflow-y: auto;
+}

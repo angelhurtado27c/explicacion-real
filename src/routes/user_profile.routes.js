@@ -7,12 +7,20 @@ const PublicationModel = require('../models/Publication')
 
 // Index
 router.get('/', async (req, res) => {
-	const publications = await PublicationModel
+	const posts = await PublicationModel
 		.find({public: true})
 		.limit(6)
 		.select('title url description img_miniature')
 
-	res.render('index', {publications})
+	const auth = req.isAuthenticated()
+
+	const Nav = {
+		new: auth ? 'new' : 'log_in',
+		home: false,
+		my_profile: auth ? req.user.name : false,
+		log_in: auth ? 'log_out' : 'log_in'
+	}
+	res.render('index', {Nav, posts})
 })
 
 // Profile

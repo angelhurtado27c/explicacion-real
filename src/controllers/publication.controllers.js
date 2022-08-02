@@ -22,7 +22,13 @@ userCtrl.new_publication = (req, res) => {
 	const publication = {content}
 	publication.type = req.body.type ? req.body.type : 'article'
 
-	res.render('publication', {is_author: true, publication})
+	const Nav = {
+		new: 'new',
+		home: true,
+		my_profile: req.user.name,
+		log_in: 'log_out'
+	}
+	res.render('publication', {Nav, is_author: true, publication})
 }
 
 
@@ -156,12 +162,21 @@ userCtrl.get_publication = async (req, res) => {
 		return res.redirect('/')
 
 	let user_name = ''
-	if (req.isAuthenticated())
+	const auth = req.isAuthenticated()
+	if (auth)
 		user_name = req.user.name
 
 	const is_author = is_the_author(user_name, publication)
-	if (publication.public || is_author)
-		return res.render('publication', {is_author, publication})
+	if (publication.public || is_author) {
+
+		const Nav = {
+			new: auth ? 'new' : 'log_in',
+			home: true,
+			my_profile: auth ? req.user.name : false,
+			log_in: auth ? 'log_out' : 'log_in'
+		}
+		return res.render('publication', {Nav, is_author, publication})
+	}
 	res.redirect('/')
 }
 

@@ -1,0 +1,92 @@
+<!--<link rel="stylesheet" href="/css/components/posts_user_profile.css">-->
+<link rel="stylesheet" href="/css/components/posts.css">
+
+<% let background_color = 'background_white' %>
+<% for (let posts_by_type of posts) { %>
+	<section class="<%= background_color %>">
+		<h2><%= posts_by_type._id %></h2>
+		<div class="center_posts">
+			<% if (is_author) { %>
+				<form action="/new" method="POST" class="add">
+					<input
+						type="hidden"
+						name="type"
+						value="<%= posts_by_type._id %>"
+					>
+					<input type="submit" value="Agregar">
+				</form>
+			<% } %>
+			<% for (let post of posts_by_type.posts) { %>
+				<%- include('post_miniature', {post}) %>
+			<% } %>
+		</div>
+	</section>
+	<% if (background_color == 'background_white') { %>
+		<% background_color = 'background_blue' %>
+	<% } else { %>
+		<% background_color = 'background_white' %>
+	<% } %>
+<% } %>
+
+<%#
+	Counting the number of posts by type
+	to define the style to use
+%>
+<!--
+<section class="publications" id="$publications">
+	<h2>Publicaciones</h2>
+	<div 
+		class="center
+			<%# if (n_articles < 3) { %>
+				<%#= 'justify_content_center' %>
+			<%# } %>
+		"
+	>
+		<%# if (is_author) { %>
+			<form action="/new" method="POST" class="add">
+				<input type="hidden" name="type" value="article">
+				<input type="submit" value="Agregar">
+			</form>
+		<%# } %>
+		<%# publications.forEach(publication => { %>
+			<%# if (publication.type == 'article') { %>
+				<article class="publication">
+					<a href="/<%#= publication.url %>"><img src="/<%#= publication.img_miniature ? `uploads_img/${publication.img_miniature}` : 'img/img_miniature_default.jpg'  %> " alt="a"></a>
+					<div class="content">
+						<h2><a href="/<%#= publication.url %>"><%#= publication.title %></a></h2>
+						<p><%#= publication.description %></p>
+					</div>
+				</article>
+			<%# } %>
+		<%# }) %>
+	</div>
+</section>
+<section class="recognitions" id="$recognitions">
+	<h2>Reconocimientos</h2>
+	<div 
+		class="center
+			<%# if (n_articles < 3) { %>
+				<%#= 'justify_content_center' %>
+			<%# } %>
+		"
+	>
+		<%# if (is_author) { %>
+			<form action="/new" method="POST" class="add">
+				<input type="hidden" name="type" value="recognition">
+				<input type="submit" value="Agregar">
+			</form>
+		<%# } %>
+		<%# publications.forEach(publication => { %>
+			<%# if (publication.type == 'recognition') { %>
+				<article class="recognition">
+					<a href="/<%#= publication.url %>"><img src="/<%#= publication.img_miniature ? `uploads_img/${publication.img_miniature}` : 'img/img_miniature_default.jpg'  %> " alt="a"></a>
+					<div class="content">
+						<h2><a href="/<%#= publication.url %>"><%#= publication.title %></a></h2>
+						<p><%#= publication.description %></p>
+					</div>
+				</article>
+			<%# } %>
+		<%# }) %>
+	</div>
+</section>
+-->

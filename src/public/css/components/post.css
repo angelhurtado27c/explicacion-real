@@ -1,0 +1,333 @@
+body {
+	background-color: var(--colorA);
+}
+
+.post {
+	padding-top: 20px;
+}
+
+.post textarea,
+.post button,
+.edit button,
+.post select {
+	outline: none;
+}
+
+.post button,
+.edit button,
+.post select {
+	cursor: pointer;
+}
+
+.post .btn_upload_img,
+.post button {
+	transition: all .3s ease;
+}
+
+
+
+
+/* options */
+
+.post .options {
+	background-color: var(--colorC);
+	max-width: 300px;
+	width: calc(100% - 40px);
+	margin: auto;
+	border-radius: 7px;
+	color: var(--colorD);
+	padding-bottom: 20px;
+	margin-bottom: 20px;
+}
+
+.post .options img {
+	border-radius: 7px 7px 0 0;
+	width: 100%;
+	height: 171px;
+	object-fit: cover;
+	cursor: pointer;
+}
+
+.post .inputs {
+	padding: 0 20px;
+	margin-top: 20px;
+	/*
+	height: 249px;
+	overflow-y: auto;
+	*/
+}
+
+.post .inputs h2 {
+	text-align: center;
+	/*line-height: 0;*/
+	margin: 0 0 20px 0;
+}
+
+.post .options label,
+.post .options .label {
+	display: block;
+	margin: 20px 0 7px 0;
+}
+
+.post .options select,
+.post .options .input {
+	display: block;
+	color: var(--colorB);
+	border: 1px solid var(--colorB);
+	background-color: var(--colorC);
+	border-radius: 7px;
+	padding: 5px 7px;
+	font-size: 16px;
+	font-weight: bold;
+	cursor: pointer;
+	transition: all .3s ease;
+	width: 100%;
+}
+
+.post .options select:hover,
+.post .options .input:hover {
+	background-color: var(--colorB);
+	color: var(--colorC);
+}
+
+.post [type=file] {
+	display: none;
+}
+
+.post .inputs p {
+	margin: 0 auto;
+	text-align: center;
+	font-style: italic;
+	max-width: 70%;
+}
+
+/* delete*/
+
+.post .delete {
+	max-width: 960px;
+	width: calc(100% - 40px);
+	margin: auto;
+	margin-bottom: 20px;
+}
+
+.post .delete button {
+	border: none;
+	padding: 10px;
+	border-radius: 7px;
+	font-weight: bold;
+	font-size: 16px;
+}
+
+.post #\$delete {
+	border: 1px solid var(--colorC);
+	background-color: var(--colorA);
+	color: var(--colorC);
+	width: 119px;
+}
+
+.post #\$delete:hover {
+	background-color: var(--colorC);
+	color: var(--colorA);
+}
+
+.post #\$delete_msg {
+	display: none;
+	position: fixed;
+	z-index: 3;
+	top: 0;
+	bottom: 0;
+	left: 0;
+	right: 0;
+	background-color: #2B4162ee;
+	align-items: center;
+	justify-content: center;
+}
+
+.post #\$delete_msg.appear_delete_msg {
+	animation: .3s ease appear_opacity;
+}
+
+.post #\$delete_msg.disappear_delete_msg {
+	animation: .3s ease disappear_opacity forwards;
+}
+
+@keyframes appear_opacity {
+	from {opacity: 0;}
+	to {opacity: 1;}
+}
+
+@keyframes disappear_opacity {
+	from {opacity: 1;}
+	to {opacity: 0;}
+}
+
+.post #\$delete_msg div {
+	border-radius: 7px;
+	background-color: var(--colorC);
+	text-align: center;
+	padding: 20px;
+	max-width: 341px;
+	width: calc(100% - 40px);
+}
+
+.post #\$delete_msg p {
+	color: var(--colorD);
+	margin: 10px 0;
+}
+
+.post #\$delete_msg button {
+	padding: 10px;
+	width: 60px;
+	background-color: var(--colorB);
+	color: var(--colorC);
+	margin: 10px 5px 0 5px;
+}
+
+.post #\$delete_msg button:hover {
+	background-color: var(--colorC);
+	color: var(--colorB);
+}
+
+/* article */
+
+.post article,
+.post textarea {
+	max-width: 1000px;
+	background-color: var(--colorC);
+	color: var(--colorD);
+	border-radius: 7px;
+	padding: 20px;
+}
+
+.post h1,
+.post h2,
+.post h3 {
+	color: var(--colorB);
+}
+.post h1 { font-size: 35px; margin: 40px 0; text-align: center; }
+.post h2 { font-size: 27px; margin: 30px 0; }
+.post h3 { font-size: 20px; margin: 20px 0; }
+
+.post p {
+	font-size: 16px;
+	line-height: 25px;
+	margin: 20px 0;
+}
+
+.post img {
+	display: block;
+	max-width: 100%;
+	border-radius: 7px;
+	margin: 0 auto;
+}
+
+/* textarea */
+
+.post .textarea {
+	background-color: var(--colorC);
+	max-width: 1000px;
+	margin: 0 auto 20px auto;
+	padding: 20px 0;
+	position: sticky;
+	top: 0;
+	z-index: 1;
+	box-shadow: 0 0 16px black;
+	border-radius: 7px;
+}
+
+.post textarea {
+	padding: 0 20px;
+	border-radius: 0;
+	height: 40vh;
+	font-size: 16px;
+	line-height: 25px;
+	display: block;
+	width: 100%;
+	word-wrap: break-word;
+	resize: none;
+	border: none;
+}
+
+/* .edit */
+
+.edit {
+	max-width: 1000px;
+	margin: 10px auto 0 auto;
+	position: sticky;
+	z-index: 2;
+	bottom: 48px;
+	text-align: right;
+	padding-right: 10px;
+	height: 0;
+}
+
+.edit button {
+	/*float: right;*/
+	border: none;
+	border-radius: 7px;
+	background-color: var(--colorB);
+	color: var(--colorC);
+	padding: 10px;
+	margin-right: 10px;
+	width: 119px;
+	font-weight: bold;
+	font-size: 16px;
+	outline: none;
+	transition: all .3s ease;
+}
+
+.edit button:hover {
+	background-color: var(--colorC);
+	color: var(--colorB);
+}
+
+/* err */
+
+.err {
+	display: none;
+	margin: 10px auto 0 auto;
+	background-color: var(--colorB);
+	color: var(--colorC);
+	padding: 20px 0;
+	border-radius: 7px;
+	position: sticky;
+	z-index: 2;
+	bottom: 58px;
+	left: 20px;
+	max-width: 960px;
+	width: calc(100% - 40px);
+}
+
+.err .list_container {
+	max-height: 46px;
+	overflow: auto;
+	padding: 0 20px;
+}
+
+.err ul {
+	margin-left: 20px;
+}
+
+.err li {
+	margin-top: 10px;
+}
+
+.err li:first-child {
+	margin-top: 0;
+}
+
+
+
+
+@media screen and ( min-width: 720px ) {
+	/* --- --- --- post --- --- --- */
+	
+	.post h1 {
+		font-size: 35px;
+	}
+
+	.post article,
+	.post textarea {
+		margin: 0 auto;
+	}
+}

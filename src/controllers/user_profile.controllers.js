@@ -1,4 +1,5 @@
 const PublicationModel = require('../models/Publication')
+const User = require('../models/User')
 const is_empty = require('../helpers/is_empty.helpers')
 
 const userCtrl = {}
@@ -9,23 +10,49 @@ const userCtrl = {}
 userCtrl.user_profile = async (req, res) => {
 	const req_profile = req.params.req_profile
 	const auth = req.isAuthenticated()
-	let publications
+	const my_user_name = auth ? req.user.name : null
 	let is_author = false
-	if (auth && req.user.name == req_profile) {
-		publications = await PublicationModel.find({
-			authors: req_profile
-		})
+	
+	const match = {authors: req_profile}
+	if (auth && my_user_name == req_profile)
 		is_author = true
-	} else {
-		publications = await PublicationModel.find({
-			authors: req_profile,
-			public: true
-		})
+	else
+		match.public = true
+
+	const posts = await PublicationModel.aggregate([
+		{$match: match},
+		{$group: {
+			_id: '$type',
+			posts: {
+				$push: {
+					authors: '$authors',
+					url: '$url',
+					img_miniature: '$img_miniature',
+					title: '$title',
+					description: '$description',
+				}
+			}
+		}}
+	])
+	/*
+	const posts = await PublicationModel
+		.find(match)
+		.select('url type img_miniature title description')
+	*/
+
+	if (is_empty(posts)) {
+		const user = await User.findOne({name: req_profile})
+		if (!user)
+			return res.redirect('/')
 	}
 
-	if (is_empty(publications))
-		return res.redirect('/log_in')
-	res.render('user_profile', {is_author, publications})
+	const Nav = {
+		new: auth ? 'new' : 'log_in',
+		home: true,
+		my_profile: auth ? (is_author ? false : req.user.name) : false,
+		log_in: auth ? 'log_out' : 'log_in'
+	}
+	res.render('user_profile', {Nav, is_author, posts})
 
 
 

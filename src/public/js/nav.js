@@ -1,3 +1,5 @@
+// create_article.js has code that modifies the nav, on line 14
+
 class ChangeView {
 	constructor(
 			small_default, big_default,
@@ -33,15 +35,32 @@ class ChangeView {
 
 class SearcherViewHandler {
 	constructor() {
+		$new.active = true
+		if (window.location.pathname == '/new') {
+			$new.style.display = 'none'
+			$new.active = false
+		}
+
 		const Change_view = new ChangeView(
 			/* small default */
-			this.active_search,
+			() => {
+				const width = `${$options.children.length * 100}%`
+				$options.style.width = width
+				this.active_search()
+			},
 
 			/* big default */
-			() => {$btn_search.onclick = this.search},
+			() => {
+				if ($options.children.length == 3)
+					$options.style.width = '150%'
+				$btn_search.onclick = this.search
+			},
 
 			/* small change */
 			() => {
+				const width = `${$options.children.length * 100}%`
+				$options.style.width = width
+
 				if (this.style == 'search_mobile')
 					this.show_mobile_searcher()
 				else
@@ -50,6 +69,10 @@ class SearcherViewHandler {
 
 			/* big change */
 			() => {
+				if ($options.children.length == 3)
+					$options.style.width = '150%'
+				else
+					$options.style.width = '100%'
 				$btn_search.onclick = this.search
 				this.default_searcher()
 			}
@@ -76,7 +99,8 @@ class SearcherViewHandler {
 
 	default_searcher() {
 		$options.style.display = 'flex'
-		$new.style.display = 'block'
+		if ($new.active)
+			$new.style.display = 'block'
 		$btn_return.style.display = ''
 		$search.style.display = ''
 	}

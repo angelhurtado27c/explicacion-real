@@ -1,0 +1,166 @@
+.justify_content_center {
+	justify-content: center;
+}
+
+.publications,
+.recognitions {
+	padding: 80px 20px 40px 20px;
+}
+
+.content {
+	margin-top: 20px;
+	height: 249px;
+	overflow-y: auto;
+	/*
+	hyphens: auto;
+	word-break: break-all;
+	*/
+}
+
+main > section > h2 {
+	text-align: center;
+	font-size: 30px;
+	margin-bottom: 40px;
+}
+
+.publication,
+.recognition {
+	width: 100%;
+	max-width: 300px;
+	height: 463.5px;
+	border-radius: 7px;
+	margin: 0 auto 40px auto;
+}
+
+main img {
+	width: 100%;
+	height: 171px;
+	object-fit: cover;
+	vertical-align: top;
+	border-radius: 7px 7px 0 0;
+}
+
+.publication h2 a,
+.recognition h2 a {
+	display: block;
+	padding: 0 0 10px 0;
+	margin: 0 20px;
+	text-decoration: none;
+}
+
+main p {
+	padding: 10px 20px 0 20px;
+	font-size: 16px;
+	line-height: 25px;
+}
+
+.add {
+	max-width: 300px;
+	height: 463.5px;
+	font-size: 24px;
+	font-weight: bold;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	margin: 0 auto 40px auto;
+	padding: 20px;
+}
+
+.add input {
+	background-color: transparent;
+	border: none;
+	font-size: 24px;
+	font-weight: bold;
+	cursor: pointer;
+}
+
+.add:hover input {
+	text-decoration: underline;
+}
+
+/* publication */
+
+.publications {
+	background-color: var(--colorC);
+}
+
+.publications > h2 {
+	color: var(--colorB);
+}
+
+.publication {
+	background-color: var(--colorA);
+	color: var(--colorC);
+}
+
+.publication h2 a {
+	color: var(--colorC);
+	border-bottom: 1px solid var(--colorC);
+}
+
+.publications .add {
+	border: 5px dashed var(--colorA);
+}
+
+.publications .add input {
+	color: var(--colorA);
+}
+
+/* recognitions */
+
+.recognitions {
+	background-color: var(--colorA);
+}
+
+.recognitions > h2 {
+	color: var(--colorC);
+}
+
+.recognition {
+	background-color: var(--colorC);
+	color: var(--colorD);
+}
+
+.recognition h2 a {
+	color: var(--colorB);
+	border-bottom: 1px solid var(--colorB);
+}
+
+.recognitions .add {
+	border: 4px dashed var(--colorC);
+}
+
+.recognitions .add input {
+	color: var(--colorC);
+}
+
+
+
+
+@media screen and ( min-width: 720px ) {
+	.publication,
+	.recognition,
+	.add {
+		margin: 0 20px 40px 20px;
+	}
+
+	.add {
+		width: 300px;
+	}
+
+	main .center {
+		width: 1020px;
+		margin: auto;
+		display: flex;
+		flex-flow: row wrap;
+	}
+
+
+
+
+	@media screen and ( max-width: 1059px ) {
+		main .center {
+			width: 680px;
+		}
+	}
+}

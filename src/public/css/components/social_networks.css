@@ -1,0 +1,16 @@
+.social_networks {
+	background-color: var(--colorB);
+	padding: 20px;
+	text-align: center;
+}
+
+.social_networks a {
+	margin: 10px;
+	text-decoration: none;
+	font-weight: bold;
+	display: inline-block;
+	background-color: var(--colorC);
+	color: var(--colorB);
+	padding: 10px;
+	border-radius: 7px;
+}

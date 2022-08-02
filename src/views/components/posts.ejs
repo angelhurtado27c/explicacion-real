@@ -1,0 +1,16 @@
+<link rel="stylesheet" href="/css/components/posts.css">
+
+<div class="background_white">
+	<div class="center_posts">
+		<% for ( let post of posts ) { %>
+			<%- include('post_miniature', {post}) %>
+		<% } %>
+	</div>
+</div>
+<div class="background_blue">
+	<div class="center_posts">
+		<% for ( let post of posts ) { %>
+			<%- include('post_miniature', {post}) %>
+		<% } %>
+	</div>
+</div>

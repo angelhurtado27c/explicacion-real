@@ -9,8 +9,12 @@ async function save() {
 
 	await upload_data()
 	const publication_exists = window.location.pathname.substr(1) != 'new'
-	if (publication_exists)
+	if (publication_exists) {
 		await upload_img_miniature()
+		$new.active = true
+		if ($btn_return.style.display == '')
+			$new.style.display = 'block'
+	}
 
 	$save.innerHTML = 'Guardar'
 	this.onclick = save
