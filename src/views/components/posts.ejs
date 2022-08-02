@@ -1,15 +1,24 @@
 <link rel="stylesheet" href="/css/components/posts.css">
+<link rel="stylesheet" href="/css/components/user_result.css">
+
+<% if (results.users) { %>
+	<div class="center_users">
+		<% for (let user of results.users) { %>
+			<%- include('user_miniature', {user}) %>
+		<% } %>
+	</div>
+<% } %>
 
 <div class="background_white">
 	<div class="center_posts">
-		<% for ( let post of posts ) { %>
+		<% for (let post of results.posts) { %>
 			<%- include('post_miniature', {post}) %>
 		<% } %>
 	</div>
 </div>
 <div class="background_blue">
 	<div class="center_posts">
-		<% for ( let post of posts ) { %>
+		<% for (let post of results.posts) { %>
 			<%- include('post_miniature', {post}) %>
 		<% } %>
 	</div>

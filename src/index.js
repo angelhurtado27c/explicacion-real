@@ -3,6 +3,13 @@ require('./database')
 require('./server')
 
 /*
+db.publications.update(
+	{title: "JavaScript"},
+	{$set: {
+		authors: ["60be977819e2b520e02c467e", "60be58b093058014cc7b7a19"]
+	}}
+)
+
 Estudiar Node JS puro con Mirchar
 
 https://nodejs.dokry.com/node.js/subdominio

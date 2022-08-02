@@ -18,11 +18,11 @@ passport.use(new LocalStrategy({
 }))
 
 passport.serializeUser((user, done) => {
-	done(null, user.name)
+	done(null, user._id)
 })
 
-passport.deserializeUser((name, done) => {
-	UserModel.findOne({name}, (err, user) => {
+passport.deserializeUser((_id, done) => {
+	UserModel.findOne({_id}, (err, user) => {
 		done(err, user)
 	})
 })

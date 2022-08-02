@@ -1,17 +1,3 @@
-:root {
-	--colorA: #2B4162;
-	--colorB: #307351;
-	--colorC: #F6F0ED;
-	--colorD: #370C06;
-}
-
-* {
-	margin: 0;
-	padding: 0;
-	box-sizing: border-box;
-	font-family: Arial, Helvetica, sans-serif;
-}
-
 body {
 	background-color: var(--colorA);
 }

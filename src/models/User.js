@@ -7,7 +7,8 @@ const UserSchema = new Schema({
 	profile_img: {type: String},
 	job: {type: String},
 	genresWorks: {type: Object}, // Array
-	social_networks: {type: Array}
+	social_networks: {type: Array},
+	hearts: {type: Array}
 }, {timestamps: true})
 
 UserSchema.methods.encryptPass = async pass => {

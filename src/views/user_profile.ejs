@@ -3,7 +3,7 @@
 	<head>
 		<meta charset="UTF-8">
 		<meta name="viewport" content="width=device-width, initial-scale=1.0">
-		<title>Matemático - Miguel Ángel Hurtado Benavides</title>
+		<title><%= user.name %> - <%= user.job %></title>
 		<!--<link rel="stylesheet" href="/css/style.css">-->
 		<link rel="stylesheet" href="/css/standard.css">
 		<link rel="shorcut icon" type="image/x-icon" href="css/img/ico.svg">
@@ -19,14 +19,14 @@
 	<body>
 		<header>
 			<%- include('components/nav') %>
-			<%- include('components/presentation', {user}) %>
+			<%- include('components/presentation') %>
 		</header>
 		<main>
-			<%- include('components/posts_user_profile', {user, posts}) %>
+			<%- include('components/posts_user_profile', {posts: results.posts}) %>
 			<%#- include('components/posts_user_profile', {is_author, publications}) %>
 		</main>
 		<footer>
-			<%- include('components/social_networks', {user}) %>
+			<%- include('components/social_networks') %>
 		</footer>
 	</body>
 </html>

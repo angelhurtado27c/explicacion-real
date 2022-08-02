@@ -74,6 +74,15 @@
 }
 .background_white .post { background-color: var(--colorA); }
 .background_blue .post { background-color: var(--colorC); }
+.post { transition: all .3s ease; }
+.background_white .post:hover {
+	transform: rotate(3deg);
+	box-shadow: 0 0 18px var(--colorA);
+}
+.background_blue .post:hover {
+	transform: rotate(-3deg);
+	box-shadow: 0 0 18px var(--colorC);
+}
 
 article img {
 	width: 100%;
@@ -94,9 +103,10 @@ article img {
 	font-size: 20px;
 	line-height: 25px;
 	padding-bottom: 20px;
-	
 	text-decoration: none;
 }
+.post_title::first-letter { font-weight: normal; }
+
 .background_white .post_title {
 	color: var(--colorC);
 	border-bottom: 1px solid var(--colorC);

@@ -33,7 +33,7 @@ async function img_miniature(req, res, img_name) {
 		return res.json({}) // Publicación inexistente
 	}
 
-	const is_author = is_the_author(req.user.name, publication)
+	const is_author = is_the_author(req.user._id, publication)
 	if (!is_author) {
 		await delete_img(img_name)
 		return res.redirect('/')

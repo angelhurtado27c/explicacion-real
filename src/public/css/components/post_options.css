@@ -30,10 +30,12 @@
 	text-align: center;
 	/*line-height: 0;*/
 	margin: 0 0 20px 0;
+	padding: 0;
 }
 
 .post .options label,
 .post .options .label {
+	position: relative;
 	display: block;
 	margin: 20px 0 7px 0;
 }
@@ -93,11 +95,20 @@
 	display: none;
 }
 
-.post .inputs #\$img_err {
+.upload_img {
+	background-color: var(--colorB);
+	position: absolute;
+	top: 73px;
+	width: 100%;
+}
+
+.post #\$img_err {
 	margin: 0 auto;
 	text-align: center;
 	font-style: italic;
 	max-width: 70%;
+	padding: 0;
+	color: var(--colorC);
 }
 
 

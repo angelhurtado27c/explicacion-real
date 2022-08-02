@@ -121,8 +121,8 @@ body {
 	max-width: 1000px;
 	background-color: var(--colorC);
 	color: var(--colorD);
-	border-radius: 7px;
-	padding: 20px;
+	border-radius: 7px 7px 0 0;
+	padding: 20px 60px 30px 60px;
 }
 
 .post h1,
@@ -130,14 +130,14 @@ body {
 .post h3 {
 	color: var(--colorB);
 }
-.post h1 { font-size: 35px; margin: 40px 0; text-align: center; }
-.post h2 { font-size: 27px; margin: 30px 0; }
-.post h3 { font-size: 20px; margin: 20px 0; }
+.post h1 { font-size: 35px; padding: 40px 0; text-align: center; }
+.post h2 { font-size: 27px; padding: 30px 0; }
+.post h3 { font-size: 20px; padding: 20px 0; }
 
 .post p {
 	font-size: 16px;
 	line-height: 25px;
-	margin: 20px 0;
+	padding-bottom: 25px;
 }
 
 .post img {
@@ -256,4 +256,24 @@ body {
 	.post textarea {
 		margin: 0 auto;
 	}
+}
+
+
+
+
+@media screen and ( max-width: 555px ) {
+	.post article,
+	.post textarea {
+		padding-left: 20px;
+		padding-right: 20px;
+	}
+}
+
+
+
+
+@media screen and ( max-width: 480px ) {
+	.post h1 { font-size: 22px; }
+	.post h2 { font-size: 20px; }
+	.post h3 { font-size: 18px; }
 }

@@ -19,7 +19,11 @@ app.use(express.json())
 app.use(session({
 	secret: 'secret_string',
 	resave: true,
-	saveUninitialized: true
+	saveUninitialized: true,
+	cookie: {
+		//secure: true,
+		sameSite: true
+	}
 }))
 app.use(passport.initialize())
 app.use(passport.session())
@@ -33,6 +37,7 @@ app.use((req, res, next) => {
 })
 
 // Routes
+app.use(require('./routes/search.routes'))
 app.use(require('./routes/log_in.routes'))
 app.use(require('./routes/publication.routes'))
 app.use(require('./routes/user_profile.routes'))

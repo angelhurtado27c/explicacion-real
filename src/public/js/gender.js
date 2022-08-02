@@ -57,7 +57,8 @@ class GenreHandler {
 	}
 
 	genderListHaveTheSearch() {
-		const exact_search = modifyText.onlyFirstLetterUppercase($gender_search.value)
+		const exact_search = modifyText
+			.onlyFirstLetterUppercase($gender_search.value)
 		for (let item of this.gender_list)
 			if (exact_search == item.innerText) return true
 		return exact_search

@@ -4,6 +4,7 @@ const upload_img_miniature = require('../controllers/img.controllers')
 const {
 	new_publication,
 	get_publication,
+	hearts,
 	save_update_publication,
 	delete_publication
 } = require('../controllers/publication.controllers')
@@ -26,6 +27,9 @@ router.delete('/delete_publication', if_auth_next, delete_publication)
 
 // Get
 router.get('/:url_publication', get_publication)
+
+// Hearts
+router.post('/heart/:url_publication', if_auth_next, hearts)
 
 
 

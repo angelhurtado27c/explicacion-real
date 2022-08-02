@@ -9,6 +9,8 @@ const Publication = new Schema({
 	title: {type: String},
 	description: {type: String},
 	content: {type: String},
+	views: {type: Number, default: 0},
+	hearts: {type: Number, default: 0}
 }, {timestamps: true})
 
 module.exports = model('Publication', Publication)

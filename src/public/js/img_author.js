@@ -33,8 +33,8 @@ class EditProfile {
 	constructor() {
 		this.makeForm()
 		this.element = null
-		document.ondblclick = this.editEvent
-		document.onclick = this.disableEditing
+		document.addEventListener('dblclick', this.editEvent)
+		document.addEventListener('click', this.disableEditing)
 	}
 
 
@@ -90,7 +90,7 @@ class EditProfile {
 
 	makeForm = () => {
 		this.form = document.createElement('form')
-		this.form.className = 'ignore'
+		//this.form.className = 'ignore'
 
 		this.input = document.createElement('input')
 		this.input.type = 'text'

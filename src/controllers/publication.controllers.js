@@ -1,4 +1,5 @@
 const PublicationModel = require('../models/Publication')
+const UserModel = require('../models/User')
 const is_the_author = require('../helpers/is_the_author.helpers')
 const get_url = require('../helpers/get_url.helpers')
 const is_empty = require('../helpers/is_empty.helpers')
@@ -26,14 +27,15 @@ postCtrl.new_publication = (req, res) => {
 	const Nav = {
 		new: 'new',
 		home: true,
-		my_profile: req.user.name,
+		my_profile: req.user._id,
 		log_in: 'log_out'
 	}
 	res.render('publication', {
 		Nav,
 		is_author: true,
 		publication,
-		user: req.user
+		user: req.user,
+		authors: []
 	})
 }
 
@@ -57,12 +59,12 @@ postCtrl.save_update_publication = async (req, res) => {
 		.findOne({url: publication.previous_url})
 
 	if (publication_db) {
-		const is_author = is_the_author(req.user.name, publication_db)
+		const is_author = is_the_author(req.user._id, publication_db)
 		if (!is_author)
 			return res.json({})
 		await publication_db.updateOne(publication)
 	} else {
-		publication.authors = [req.user.name]
+		publication.authors = [req.user.id]
 		publication_db = await PublicationModel.create(publication)
 	}
 
@@ -153,7 +155,7 @@ postCtrl.delete_publication = async (req, res) => {
 	if (!publication)
 		return res.redirect('/')
 
-	const is_author = is_the_author(req.user.name, publication)
+	const is_author = is_the_author(req.user._id, publication)
 	if (!is_author)
 		return res.redirect('/')
 
@@ -172,34 +174,110 @@ postCtrl.delete_publication = async (req, res) => {
 
 postCtrl.get_publication = async (req, res) => {
 	const url_publication = req.params.url_publication
-	const publication = await PublicationModel.findOne({
-		url: url_publication
-	})
+
+	/*
+	const publication = await PublicationModel
+		.findOneAndUpdate(
+			{url: url_publication},
+			{views: 1}, //'{"$sum": 1}'
+			{new: true}
+		).select('authors _id public content title description img_miniature views')
+	https://docs.mongodb.com/manual/reference/operator/aggregation/sum/
+	*/
+	const publication = await PublicationModel
+		.findOne({url: url_publication})
+		.select(`
+			authors
+			_id
+			public
+			content
+			title
+			description
+			img_miniature
+			createdAt
+			hearts
+		`)
 
 	if (!publication)
 		return res.redirect('/')
 
-	let user_name = ''
-	const auth = req.isAuthenticated()
-	if (auth)
-		user_name = req.user.name
+	/*
+	publication
+		.updateOne({views: publication.views+1})
+		.exec()
+	*/
 
-	const is_author = is_the_author(user_name, publication)
+	const authors = await getAuthors(publication.authors)
+
+	let user_id = ''
+	const auth = req.isAuthenticated()
+	if (auth) user_id = req.user._id
+
+	const is_author = is_the_author(user_id, publication)
+
 	if (publication.public || is_author) {
 		const Nav = {
 			new: auth ? 'new' : 'log_in',
 			home: true,
-			my_profile: auth ? req.user.name : false,
+			my_profile: auth ? req.user._id : false,
 			log_in: auth ? 'log_out' : 'log_in'
 		}
+		//console.log('\n\n\njj Count', await PublicationModel.count())
 		return res.render('publication', {
 			Nav,
 			is_author,
 			publication,
-			user: req.user
+			user: req.user,
+			authors
 		})
 	}
 	res.redirect('/')
+}
+
+function getAuthors(authors) {
+	return new Promise(res => {
+		const authors_data = []
+
+		const resolve = data => {
+			authors_data.push(data[0])
+			if (authors_data.length == authors.length)
+				res(authors_data)
+		}
+
+		for (let author of authors)
+			UserModel
+				.find({_id: author})
+				.select('_id name profile_img job')
+				.then(resolve)
+	})
+}
+
+
+
+
+// hearts
+
+postCtrl.hearts = async (req, res) => {
+	const user = req.user
+	const id_post = req.params.url_publication
+
+	const post = await PublicationModel
+		.findOne({url: id_post})
+		.select('hearts')
+
+	if (!post) return res.send('Tracing your ip address attempt 1 of 2')
+
+	if (user.hearts.includes(id_post)) {
+		user.hearts.pop(id_post)
+		user.updateOne({hearts: user.hearts}).exec()
+		post.updateOne({hearts: post.hearts-1}).exec()
+		return res.send('0')
+	}
+
+	user.hearts.push(id_post)
+	user.updateOne({hearts: user.hearts}).exec()
+	post.updateOne({hearts: post.hearts+1}).exec()
+	res.send('1')
 }
 
 

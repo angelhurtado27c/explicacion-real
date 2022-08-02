@@ -1,0 +1,108 @@
+.background_post {
+	position: absolute;
+	width: 100%;
+	height: 20px;
+}
+
+.background_post::before {
+	content: "";
+	display: block;
+	background-color: var(--colorC);
+	width: 100%;
+	max-width: 1000px;
+	height: 100%;
+	margin: auto;
+	border-radius: 0 0 7px 7px;
+}
+
+.controls_post .margin_top {
+	height: 20px;
+}
+
+.controls_post .left,
+.controls_post .right {
+	background-color: var(--colorA);
+	height: 100%;
+	width: 20px;
+}
+
+.controls_post .left::before {
+	content: "";
+	width: 100%;
+	height: 100%;
+	border-radius: 0 0 0 10px;
+	background: linear-gradient(
+		rgba(246, 240, 237, 1),
+		rgba(43, 65, 98, 1)
+	);
+}
+
+.controls_post .right::before {
+	content: "";
+	width: 100%;
+	height: 100%;
+	border-radius: 0 0 10px 0;
+	background: linear-gradient(
+		rgba(246, 240, 237, 1),
+		rgba(43, 65, 98, 1)
+	);
+}
+
+.controls_post .center {
+	background: linear-gradient(
+		rgba(43, 65, 98, 0),
+		rgba(43, 65, 98, 1)
+	);
+	height: 100%;
+	width: 100%;
+}
+
+
+
+
+.controls_post {
+	max-width: 1000px;
+	width: 100%;
+	margin: auto;	
+	position: sticky;
+	bottom: 0;
+}
+
+.controls_post .controls {
+	background: var(--colorA);
+	padding: 7px 20px;
+}
+
+.controls_post svg {
+	cursor: pointer;
+	vertical-align: top;
+}
+
+.controls_post button {
+	background-color: transparent;
+	border: none;
+}
+
+.controls_post span {
+	padding-top: 1px;
+	font-family: 'Poppins';
+	color: var(--colorC);
+	margin-left: 7px;
+}
+
+.controls_post input {
+	box-sizing: content-box;
+	border: 1px solid var(--colorC);
+	outline: none;
+	background-color: transparent;
+	width: 40px;
+	font-family: 'Poppins';
+	color: var(--colorC);
+	padding: 0 10px;
+	border-radius: 7px;
+	text-align: right;
+}
+
+.controls_post div {
+	display: flex;
+}

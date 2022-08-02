@@ -3,18 +3,46 @@
 	<head>
 		<meta charset="UTF-8">
 		<meta name="viewport" content="width=device-width, initial-scale=1.0">
-		<title>Article</title>
+		<!---------------------------------------------------------------------
+		| <meta name="keywords" content="diseño web, código, programación" /> |
+		---------------------------------------------------------------------->
+		<meta
+			name="description"
+			content="<%= publication.description %>"
+		/>
+		<% for (let author of authors) { %>
+			<meta
+				name="author"
+				content="<%= author.name %>"
+			/>
+		<% } %>
+		<title><%= publication.title %></title>
 		<!--<link rel="stylesheet" href="css/publication.css">-->
-		<link rel="stylesheet" href="/css/standard.css">
 		<link rel="shorcut icon" type="image/x-icon" href="css/img/ico.svg">
+		<link rel="stylesheet" href="/css/standard.css">
 
 		<!--KaTeX-->
-		<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/katex.min.css" integrity="sha384-AfEj0r4/OFrOo5t7NnNe46zW/tFgW6x/bCJG8FqQCEo3+Aro6EYUG4+cU+KJWu/X" crossorigin="anonymous">
+		<link
+			rel="stylesheet"
+			href="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/katex.min.css"
+			integrity="sha384-AfEj0r4/OFrOo5t7NnNe46zW/tFgW6x/bCJG8FqQCEo3+Aro6EYUG4+cU+KJWu/X"
+			crossorigin="anonymous"
+		>
 		<!-- The loading of KaTeX is deferred to speed up page rendering -->
-		<script defer src="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/katex.min.js" integrity="sha384-g7c+Jr9ZivxKLnZTDUhnkOnsh30B4H0rpLUpJ4jAIKs4fnJI+sEnkvrMWph2EDg4" crossorigin="anonymous"></script>
+		<script
+			defer
+			src="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/katex.min.js"
+			integrity="sha384-g7c+Jr9ZivxKLnZTDUhnkOnsh30B4H0rpLUpJ4jAIKs4fnJI+sEnkvrMWph2EDg4"
+			crossorigin="anonymous"
+		></script>
 		<!-- To automatically render math in text elements, include the auto-render extension: -->
-    	<script defer src="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/contrib/auto-render.min.js" integrity="sha384-mll67QQFJfxn0IYznZYonOWZ644AWYC+Pt2cHqMaRhXVrursRwvLnLaebdGIlYNa" crossorigin="anonymous"
-			onload="renderMathInElement(document.body);"></script>
+    	<script
+			defer
+			src="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/contrib/auto-render.min.js"
+			integrity="sha384-mll67QQFJfxn0IYznZYonOWZ644AWYC+Pt2cHqMaRhXVrursRwvLnLaebdGIlYNa"
+			crossorigin="anonymous"
+			onload="renderMathInElement(document.body);"
+		></script>
 	</head>
 	<body>
 		<header>
@@ -33,6 +61,10 @@
 		<!---->
 		<main>
 			<%- include('components/post', {is_author, publication}) %>
+			<% if (is_author) { %>
+				<div style="margin-top: 50px;"></div>
+			<% } %>
+			<%- include('components/authors', is_author, authors) %>
 		</main>
 		<footer>
 			<%- include('components/suggestions') %>

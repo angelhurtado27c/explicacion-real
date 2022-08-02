@@ -1,0 +1,46 @@
+<link rel="stylesheet" href="/css/components/data_post.css">
+
+<div class="background_post"></div>
+<div
+	class="controls_post"
+	<% if (is_author) { %>
+		style="position: static;"
+	<% } %>
+>
+	<div class="margin_top">
+		<div class="left"></div>
+		<div class="center"></div>
+		<div class="right"></div>
+	</div>
+
+	<div class="controls">
+		<div class="heart">
+			<button id="$button_heart"
+				<% if (user) { %>
+					data-log_in="true"
+				<% } else { %>
+					data-log_in="false"
+				<% } %>
+			>
+			<% let red = false %>
+			<% if (user) { %>
+				<% red = user.hearts.includes(publication.id) %>
+			<% } %>
+			<svg width="29px" height="26px">
+				<g transform="translate(-175,-98)">
+					<path
+						id="$path_heart"
+						style=<%= red ? 'fill:#E01B24' : 'fill:#F6F0ED' %>
+						d="m 177.53299,99.9712 a 8.4766549,8.4766549 0 0 0 0,11.98796 l 11.98767,11.98768 11.98783,-11.98782 a 8.4766549,8.4766549 0 0 0 0,-11.98768 8.4766549,8.4766549 0 0 0 -11.98783,-1.4e-4 8.4766549,8.4766549 0 0 0 -11.98767,0 z"
+					/>
+				</g>
+			</svg>
+			</button>
+			<span id="$heart">
+				<%= publication.hearts %>
+			</span>
+		</div>
+	</div>
+</div>
+
+<script src="/js/data_post.js"></script>

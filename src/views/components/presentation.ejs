@@ -13,7 +13,7 @@
 		<p id="$img_err"></p>
 		<input type="file" id="$file_img_profile">
 	<% } %>
-	<h1 class=""><%= user.name %></h1>
+	<h1 class="editable" id="$name"><%= user.name %></h1>
 	<% if (user.job) { %>
 		<h2 class="editable" id="$job"><%= user.job %></h2>
 	<% } %>

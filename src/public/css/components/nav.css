@@ -2,10 +2,12 @@
 
 .i_new { content: url('/img/ico/new.svg'); }
 .i_return { content: url('/img/ico/return.svg'); }
+.i_reset_search { content: url('/img/ico/reset_search.svg'); }
 .i_search { content: url('/img/ico/search.svg'); }
 .i_user { content: url('/img/ico/user.svg'); }
 .i_home { content: url('/img/ico/home.svg'); }
 
+.i_reset_search { width: 10px; }
 .i_new,
 .i_return,
 .i_search,
@@ -23,12 +25,16 @@
 nav {
 	box-sizing: content-box;
 	position: fixed;
+	z-index: 3;
 	top: 0;
 	left: 0;
 	width: 100%;
 	height: 34px;
 	background: no-repeat fixed center center;
 	background-size: cover;
+	/*
+	background-color: var(--colorB);
+	*/
 	background: url('https://okdiario.com/img/2020/05/20/la-nasa-cree-que-hay-un-universo-paralelo-en-el-que-el-tiempo-va-hacia-atras.jpg');
 	/*
 	background-color: var(--colorA);
@@ -80,31 +86,30 @@ nav .options a {
 /* --- --- --- search --- --- --- */
 
 nav form {
+	position: relative;
 	display: flex;
 	border: none;
 	justify-content: center;
 	align-items: center;
+	/*background-color: var(--colorC);*/
 }
 
 nav form input {
 	min-width: 0;
 	width: 900%;
 	background-color: transparent;
-	color: var(--colorC);
+	color: var(--colorD);
 	font-size: 16px;
-	padding: 7px 14px;
+	padding: 7px 44px 7px 14px;
 	border: 1px solid transparent;
 	border-bottom: 1px solid var(--colorC);
-	transition: all .3s ease;
-}
-
-nav form input:focus {
+	background-color: var(--colorC);
 	border-radius: 7px;
-	border: 1px solid var(--colorC);
 }
 
 nav form button:first-child,
-nav form input {
+nav form input,
+nav form input[type="search"]::-webkit-search-cancel-button {
 	display: none;
 	outline: none;
 }
@@ -119,13 +124,27 @@ nav button {
 	background-color: transparent;
 }
 
+#\$reset_search {
+	display: none;
+	width: auto;
+	padding-right: 10px;
+	padding-left: 14px;
+	background-color: var(--colorC);
+	margin: 0;
+	height: 100%;
+	border-radius: 0 7px 7px 0;
+	position: absolute;
+	right: calc(100%/11 + 27px);
+}
+
 
 
 
 /* --- --- --- options --- --- --- */
 
 .options a {
-	font-weight: bold;
+	font-family: 'Poppins', Arial, Helvetica, sans-serif;
+	font-weight: 600;
 	color: var(--colorC);
 	text-decoration: none;
 	display: flex;
@@ -175,9 +194,10 @@ nav button {
 	}
 
 	nav form {
-		border: 1px solid var(--colorC);
+		/*border: 1px solid var(--colorC);*/
 		border-radius: 7px;
 		padding-right: 14px;
+		background-color: var(--colorC);
 	}
 
 	nav form:focus {
@@ -189,12 +209,7 @@ nav button {
 		border-radius: 7px 0 0 7px;
 		border: none;
 		display: block;
-		transition: none;
-	}
-
-	nav form input:focus {
-		border-radius: 7px 0 0 7px;
-		border: none;
+		padding: 7px 14px;
 	}
 
 	nav #\$btn_search {
@@ -203,6 +218,12 @@ nav button {
 		display: flex;
 		align-items: center;
 		justify-content: left;
+	}
+
+	#\$reset_search {
+		position: relative;
+		right: auto;
+		padding-left: 0;
 	}
 
 	nav button {
