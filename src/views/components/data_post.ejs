@@ -24,7 +24,7 @@
 			>
 			<% let red = false %>
 			<% if (user) { %>
-				<% red = user.hearts.includes(publication.id) %>
+				<% red = publication.new || user.hearts.includes(publication.id) %>
 			<% } %>
 			<svg width="29px" height="26px">
 				<g transform="translate(-175,-98)">
@@ -37,7 +37,7 @@
 			</svg>
 			</button>
 			<span id="$heart">
-				<%= publication.hearts %>
+				<%= publication.new ? 1 : publication.hearts %>
 			</span>
 		</div>
 	</div>

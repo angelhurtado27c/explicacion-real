@@ -35,7 +35,11 @@ nav {
 	/*
 	background-color: var(--colorB);
 	*/
-	background: url('https://okdiario.com/img/2020/05/20/la-nasa-cree-que-hay-un-universo-paralelo-en-el-que-el-tiempo-va-hacia-atras.jpg');
+	/*
+	background: url('https://okdiario.com/img/2020/05/20/la-nasa-cree-que-hay-un-universo-paralelo-en-el-que-el-tiempo-va-hacia-atras.jpg') var(--colorB);
+	*/
+	background: url('/img/fondo.jpg');
+
 	/*
 	background-color: var(--colorA);
 	background: url('https://oedimdecor.com/wp-content/uploads/2019/03/fotomural-universo-estrellas1-1333x1000.jpg');
@@ -44,6 +48,7 @@ nav {
 	*/
 	padding: 5px 0;
 	border-bottom: 1px solid var(--colorC);
+	box-shadow: 0 0 14px var(--colorD);
 }
 
 .center_nav {
@@ -248,11 +253,11 @@ nav button {
 
 
 
-	@media screen and ( min-width: 1020px ) {
+	@media screen and ( min-width: 1000px ) {
 		/* -- --- --- nav --- --- --- */
 
 		.center_nav {
-			width: 980px;
+			width: 900px;
 		}
 	}
 }

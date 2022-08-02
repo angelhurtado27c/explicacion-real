@@ -86,6 +86,11 @@
 	cursor: pointer;
 }
 
+.authors *::selection {
+	background-color: var(--colorC);
+	color: var(--colorB);
+}
+
 
 
 

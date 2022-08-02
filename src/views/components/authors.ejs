@@ -8,16 +8,17 @@
 		<i class="i_right_row"></i>
 	</button>
 	<div class="scroll" id="$authors_scroll">
-				<% for( let index = 0; index < 3; index++ ) { %>
 		<% for( let author of authors ) { %>
 			<a
 				class="author"
 				href="u/<%= author._id %>"
 			>
-				<img
-					src="uploads_img/<%= author.profile_img %>"
-					alt="<%= author.name %>"
-				>
+				<% if (author.profile_img) { %>
+					<img
+						src="uploads_img/<%= author.profile_img %>"
+						alt="<%= author.name %>"
+					>
+				<% } %>
 				<section class="user_data">
 					<span class="name">
 						<%= author.name %>
@@ -28,7 +29,6 @@
 				</section>
 			</a>
 		<% } %>
-				<% } %>
 	</div>
 </div>
 <script src="js/authors.js"></script>

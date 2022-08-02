@@ -1,44 +1,46 @@
-.user_result {
-	display: flex;
-	flex-flow: column;
-	justify-content: center;
-	align-items: center;
-	max-width: 300px;
-	width: 100%;
-	height: 290.5px;
+.user {
+	margin-bottom: 20px;
+}
+
+.user a:hover {
+	filter:
+		brightness(1.1)
+		contrast(110%)
+		saturate(110%)
+	;
+}
+
+.user a {
+	display: block;
+	background-color: var(--colorB);
 	border-radius: 7px;
-	margin: 20px auto;
-	background-color: var(--colorA);
-}
-
-.user_result .data {
-	max-height: 87px;
-	padding: 0 20px;
-	overflow-y: auto;
-}
-
-.user_result a {
-	outline: none;
 	text-decoration: none;
-	text-align: center;
 	color: var(--colorC);
+	text-align: center;
+	padding: 22px 20px 5px 20px;
+	transition: all .3s ease;
 }
 
-.user_result img {
-	width: 150px;
-	height: 150px;
-	object-fit: cover;
+.user img {
+	width: 170px;
+	height: 170px;
 	border-radius: 50%;
+	object-fit: cover;
 	border: 2px solid var(--colorC);
-	margin-bottom: 10px;
+	vertical-align: top;
+	margin-bottom: 20px;
 }
 
-.user_result h2 {
+.user h2 {
 	font-size: 20px;
+	padding-bottom: 15px;
 }
 
-.user_result h3 {
-	font-size: 16px;
-	font-weight: normal;
-	padding-top: 5px;
+.user p {
+	padding: 15px 0 11px 0;
+}
+
+.user *::selection {
+	background-color: var(--colorC);
+	color: var(--colorB);
 }

@@ -2,25 +2,25 @@ body {
 	background-color: var(--colorA);
 }
 
-.post {
+.publication {
 	padding-top: 20px;
 }
 
-.post textarea,
-.post button,
+.publication textarea,
+.publication button,
 .edit button,
-.post select {
+.publication select {
 	outline: none;
 }
 
-.post button,
+.publication button,
 .edit button,
-.post select {
+.publication select {
 	cursor: pointer;
 }
 
-.post .btn_upload_img,
-.post button {
+.publication .btn_upload_img,
+.publication button {
 	transition: all .3s ease;
 }
 
@@ -29,14 +29,14 @@ body {
 
 /* delete*/
 
-.post .delete {
+.publication .delete {
 	max-width: 960px;
 	width: calc(100% - 40px);
 	margin: auto;
 	margin-bottom: 20px;
 }
 
-.post .delete button {
+.publication .delete button {
 	border: none;
 	padding: 10px;
 	border-radius: 7px;
@@ -44,19 +44,19 @@ body {
 	font-size: 16px;
 }
 
-.post #\$delete {
+.publication #\$delete {
 	border: 1px solid var(--colorC);
 	background-color: var(--colorA);
 	color: var(--colorC);
 	width: 119px;
 }
 
-.post #\$delete:hover {
+.publication #\$delete:hover {
 	background-color: var(--colorC);
 	color: var(--colorA);
 }
 
-.post #\$delete_msg {
+.publication #\$delete_msg {
 	display: none;
 	position: fixed;
 	z-index: 3;
@@ -69,11 +69,11 @@ body {
 	justify-content: center;
 }
 
-.post #\$delete_msg.appear_delete_msg {
+.publication #\$delete_msg.appear_delete_msg {
 	animation: .3s ease appear_opacity;
 }
 
-.post #\$delete_msg.disappear_delete_msg {
+.publication #\$delete_msg.disappear_delete_msg {
 	animation: .3s ease disappear_opacity forwards;
 }
 
@@ -87,7 +87,7 @@ body {
 	to {opacity: 0;}
 }
 
-.post #\$delete_msg div {
+.publication #\$delete_msg div {
 	border-radius: 7px;
 	background-color: var(--colorC);
 	text-align: center;
@@ -96,12 +96,12 @@ body {
 	width: calc(100% - 40px);
 }
 
-.post #\$delete_msg p {
+.publication #\$delete_msg p {
 	color: var(--colorD);
 	margin: 10px 0;
 }
 
-.post #\$delete_msg button {
+.publication #\$delete_msg button {
 	padding: 10px;
 	width: 60px;
 	background-color: var(--colorB);
@@ -109,38 +109,39 @@ body {
 	margin: 10px 5px 0 5px;
 }
 
-.post #\$delete_msg button:hover {
+.publication #\$delete_msg button:hover {
 	background-color: var(--colorC);
 	color: var(--colorB);
 }
 
 /* article */
 
-.post article,
-.post textarea {
-	max-width: 1000px;
+.publication article,
+.publication textarea {
+	max-width: 940px;
 	background-color: var(--colorC);
 	color: var(--colorD);
 	border-radius: 7px 7px 0 0;
 	padding: 20px 60px 30px 60px;
 }
 
-.post h1,
-.post h2,
-.post h3 {
+.publication h1,
+.publication h2,
+.publication h3 {
 	color: var(--colorB);
+	border-bottom: 1px solid var(--colorB);
 }
-.post h1 { font-size: 35px; padding: 40px 0; text-align: center; }
-.post h2 { font-size: 27px; padding: 30px 0; }
-.post h3 { font-size: 20px; padding: 20px 0; }
+.publication h1 { font-size: 35px; padding: 15px 0; margin-bottom: 25px; text-align: center; }
+.publication h2 { font-size: 27px; padding: 30px 0; }
+.publication h3 { font-size: 20px; padding: 20px 0; }
 
-.post p {
+.publication p {
 	font-size: 16px;
 	line-height: 25px;
 	padding-bottom: 25px;
 }
 
-.post img {
+.publication img {
 	display: block;
 	max-width: 100%;
 	border-radius: 7px;
@@ -149,7 +150,7 @@ body {
 
 /* textarea */
 
-.post .textarea {
+.publication .textarea {
 	background-color: var(--colorC);
 	max-width: 1000px;
 	margin: 0 auto 20px auto;
@@ -161,7 +162,7 @@ body {
 	border-radius: 7px;
 }
 
-.post textarea {
+.publication textarea {
 	padding: 0 20px;
 	border-radius: 0;
 	height: 40vh;
@@ -248,12 +249,12 @@ body {
 @media screen and ( min-width: 720px ) {
 	/* --- --- --- post --- --- --- */
 	
-	.post h1 {
+	.publication h1 {
 		font-size: 35px;
 	}
 
-	.post article,
-	.post textarea {
+	.publication article,
+	.publication textarea {
 		margin: 0 auto;
 	}
 }
@@ -262,8 +263,8 @@ body {
 
 
 @media screen and ( max-width: 555px ) {
-	.post article,
-	.post textarea {
+	.publication article,
+	.publication textarea {
 		padding-left: 20px;
 		padding-right: 20px;
 	}
@@ -273,7 +274,7 @@ body {
 
 
 @media screen and ( max-width: 480px ) {
-	.post h1 { font-size: 22px; }
-	.post h2 { font-size: 20px; }
-	.post h3 { font-size: 18px; }
+	.publication h1 { font-size: 22px; }
+	.publication h2 { font-size: 20px; }
+	.publication h3 { font-size: 18px; }
 }

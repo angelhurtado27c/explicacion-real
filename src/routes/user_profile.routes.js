@@ -1,30 +1,10 @@
 const router = require('express').Router()
 const {user_profile} = require('../controllers/user_profile.controllers')
 const {if_auth_next} = require('../helpers/auth.helpers')
-const PublicationModel = require('../models/Publication')
 const UserModel = require('../models/User')
-const is_empty = require('../helpers/is_empty.helpers')
 
 
 
-
-// Index
-router.get('/', async (req, res) => {
-	const posts = await PublicationModel
-		.find({public: true})
-		.limit(6)
-		.select('title url description img_miniature')
-
-	const auth = req.isAuthenticated()
-
-	const Nav = {
-		new: auth ? 'new' : 'log_in',
-		home: false,
-		my_profile: auth ? req.user._id : false,
-		log_in: auth ? 'log_out' : 'log_in'
-	}
-	res.render('index', {Nav, results: {posts}})
-})
 
 // Profile
 router.get('/u/:user_id', user_profile)

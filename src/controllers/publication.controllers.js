@@ -1,10 +1,14 @@
 const PublicationModel = require('../models/Publication')
 const UserModel = require('../models/User')
 const is_the_author = require('../helpers/is_the_author.helpers')
+// ---- --- eliminar get_url --- ---
 const get_url = require('../helpers/get_url.helpers')
 const is_empty = require('../helpers/is_empty.helpers')
 const {delete_img} = require('../helpers/img.helpers')
 const validate_genres = require('../helpers/validate_genres.helpers')
+const User = require('../models/User')
+const { json } = require('express')
+const Publication = require('../models/Publication')
 
 const postCtrl = {}
 
@@ -18,7 +22,7 @@ postCtrl.new_publication = (req, res) => {
 	content += '\n\n<p>\nY con esta esta etiqueta puedes agregar párrafos\n</p>'
 	content += '\n\n<p>\nMás párrafos\n</p>'
 
-	const publication = {content}
+	const publication = {content, new:true}
 	// *****************
 	// ***** type ******
 	// *****************
@@ -35,7 +39,8 @@ postCtrl.new_publication = (req, res) => {
 		is_author: true,
 		publication,
 		user: req.user,
-		authors: []
+		authors: [],
+		suggestions: false
 	})
 }
 
@@ -49,23 +54,24 @@ postCtrl.save_update_publication = async (req, res) => {
 
 	// validate post content
 	const err = await validate_post_content(publication)
-	if (!is_empty(err))
-		return res.json(err)
+	if (!is_empty(err)) return res.json(err)
 
 	const genders = publication.genders
 	delete publication.genders
+	const url = publication.url
+	delete publication.url
 
-	let publication_db = await PublicationModel
-		.findOne({url: publication.previous_url})
-
-	if (publication_db) {
-		const is_author = is_the_author(req.user._id, publication_db)
-		if (!is_author)
-			return res.json({})
-		await publication_db.updateOne(publication)
-	} else {
+	let publication_db
+	if (url == 'new') {
 		publication.authors = [req.user.id]
 		publication_db = await PublicationModel.create(publication)
+		req.user.hearts.push(publication_db.id)
+		req.user.updateOne({hearts: req.user.hearts}).exec()
+	} else {
+ 		publication_db = await PublicationModel.findById(url)
+		const is_author = is_the_author(req.user._id, publication_db)
+		if (!is_author) return res.json({})
+		await publication_db.updateOne(publication)
 	}
 
 	await updateUserWorkGenres(
@@ -74,7 +80,7 @@ postCtrl.save_update_publication = async (req, res) => {
 		publication_db.id
 	)
 
-	res.json({})
+	res.json({id: publication_db.id})
 }
 
 async function updateUserWorkGenres(user, genders, id_publication) {
@@ -117,10 +123,12 @@ async function updateUserWorkGenres(user, genders, id_publication) {
 
 
 async function validate_post_content(publication) {
+	const error = {}
+
+	/*
 	if (publication.url != get_url(publication.title))
 		return {url: 'Don\'t cheat me'}
-
-	const error = {}
+		
 	if (!publication.url)
 		error.url = 'Debe tener un h1 con contenido'
 	else if (publication.url.toLowerCase() == 'new')
@@ -134,6 +142,7 @@ async function validate_post_content(publication) {
 		if (await PublicationModel.findOne({url: publication.url}))
 			error.url = 'El titulo ya está en uso'
 	}
+	*/
 
 	if (!validate_genres(publication.genders))
 		error.genders = 'Portate bien  ; b'
@@ -147,24 +156,44 @@ async function validate_post_content(publication) {
 // Delete
 
 postCtrl.delete_publication = async (req, res) => {
-	const url_publication = req.body.url_article
-	const publication = await PublicationModel.findOne({
-		url: url_publication
-	})
+	const url = req.body.url_article
+	let publication
+	try {
+		publication = await PublicationModel
+			.findById(url)
+			.select('authors')
+	} catch {return res.redirect('/')}
 
-	if (!publication)
-		return res.redirect('/')
-
-	const is_author = is_the_author(req.user._id, publication)
-	if (!is_author)
-		return res.redirect('/')
+	const user = req.user
+	const is_author = is_the_author(user._id, publication)
+	if (!is_author) return res.redirect('/')
 
 	await delete_img(publication.img_miniature)
-	const was_deleted = await PublicationModel.deleteOne({
-		url: url_publication
-	})
+	const was_deleted = await PublicationModel
+		.deleteOne({_id: url})
+
+	removeGenres(publication)
 
 	res.send(was_deleted.n ? 'ok' : 'fail')
+}
+
+function removeGenres(post) {
+	function thenRemoveGenres(author) {
+		const genresWorks = author.genresWorks
+		Object.keys(genresWorks).forEach(gender => {
+			if (genresWorks[gender][post._id] !== null) return
+			delete genresWorks[gender][post._id]
+
+			const gender_empty = !Object.keys(genresWorks[gender]).length
+			if (gender_empty) delete genresWorks[gender]
+		})
+		author.updateOne({genresWorks}).exec()
+	}
+
+	for (let id_author of post.authors)
+		UserModel.findById(id_author)
+			.select('genresWorks')
+			.then(thenRemoveGenres)
 }
 
 
@@ -173,7 +202,7 @@ postCtrl.delete_publication = async (req, res) => {
 // Get
 
 postCtrl.get_publication = async (req, res) => {
-	const url_publication = req.params.url_publication
+	const url = req.params.url_publication
 
 	/*
 	const publication = await PublicationModel
@@ -184,28 +213,27 @@ postCtrl.get_publication = async (req, res) => {
 		).select('authors _id public content title description img_miniature views')
 	https://docs.mongodb.com/manual/reference/operator/aggregation/sum/
 	*/
-	const publication = await PublicationModel
-		.findOne({url: url_publication})
-		.select(`
-			authors
-			_id
-			public
-			content
-			title
-			description
-			img_miniature
-			createdAt
-			hearts
-		`)
 
-	if (!publication)
+	let publication
+	try {
+		publication = await PublicationModel
+			.findById(url)
+			.select(`
+				authors
+				title
+				description
+				public
+				content
+				img_miniature
+				hearts
+			`)
+		if (!publication) return res.redirect('/')
+	} catch {
 		return res.redirect('/')
+	}
 
-	/*
-	publication
-		.updateOne({views: publication.views+1})
-		.exec()
-	*/
+	const suggestions = await getSuggestions(publication.authors, publication.id)
+	// console.log('\n\n\n', suggestions, suggestions.length)
 
 	const authors = await getAuthors(publication.authors)
 
@@ -228,13 +256,77 @@ postCtrl.get_publication = async (req, res) => {
 			is_author,
 			publication,
 			user: req.user,
-			authors
+			authors,
+			suggestions
 		})
 	}
 	res.redirect('/')
 }
 
-function getAuthors(authors) {
+function getSuggestions(authors, id_current_post) {
+	return new Promise(async res => {
+		// get posts from one of the authors of this post
+
+		const author_id = authors[rand(authors.length)]
+
+		const suggestions = {author: false, from_others: false}
+		let random_posts = []
+
+		// select up to three posts by this author
+		const threePostsAuthor = async author_posts => {
+			// select the ids of the posts of this author
+			author_posts = author_posts.genresWorks
+			let id_posts = []
+			Object.keys(author_posts).forEach(gender => {
+				id_posts = id_posts.concat(
+					Object.keys(author_posts[gender])
+				)
+			})
+
+			// select up to three random post ids by this author
+			const random_ids = []
+			const len = id_posts.length
+			for (let i = 0; i < 4; i++) {
+				let random_id = id_posts[rand(len)]
+				if (random_id != id_current_post)
+					random_ids.push(random_id)
+			}
+
+			// getting the posts
+			const posts = await PublicationModel
+				.find({public: true, _id: {$in: random_ids}})
+				.select('title description')
+			random_posts = posts.concat(random_posts)
+			if (suggestions.from_others) res(random_posts)
+			suggestions.author = true
+		}
+
+		UserModel.findById(author_id)
+			.select('genresWorks')
+			.then(threePostsAuthor)
+
+
+		// get suggestions from writers who are not authors of this post
+
+		const posts = await PublicationModel.aggregate([
+			{$sample: {size: 20}},
+			{$match: {
+				public: true,
+				authors: {$ne: author_id}
+			}}
+		]).project('title description')
+
+		random_posts = random_posts.concat(posts)
+		if (suggestions.author) res(random_posts)
+		suggestions.from_others = true
+	})
+}
+
+function rand(max = 1) {
+	return Math.floor(Math.random() * max)
+}
+
+function getAuthors(authors, fields='name profile_img job') {
 	return new Promise(res => {
 		const authors_data = []
 
@@ -247,7 +339,7 @@ function getAuthors(authors) {
 		for (let author of authors)
 			UserModel
 				.find({_id: author})
-				.select('_id name profile_img job')
+				.select(fields)
 				.then(resolve)
 	})
 }
@@ -261,11 +353,14 @@ postCtrl.hearts = async (req, res) => {
 	const user = req.user
 	const id_post = req.params.url_publication
 
-	const post = await PublicationModel
-		.findOne({url: id_post})
-		.select('hearts')
-
-	if (!post) return res.send('Tracing your ip address attempt 1 of 2')
+	let post
+	try {
+		post = await PublicationModel
+			.findById(id_post)
+			.select('hearts')
+	} catch {
+		return res.send('Tracing your ip address attempt 1 of 2')
+	}
 
 	if (user.hearts.includes(id_post)) {
 		user.hearts.pop(id_post)

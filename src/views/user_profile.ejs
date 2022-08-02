@@ -3,10 +3,10 @@
 	<head>
 		<meta charset="UTF-8">
 		<meta name="viewport" content="width=device-width, initial-scale=1.0">
-		<title><%= user.name %> - <%= user.job %></title>
+		<title><%= `${user.name}${user.job ? ` - ${user.job}` : ''}` %></title>
 		<!--<link rel="stylesheet" href="/css/style.css">-->
 		<link rel="stylesheet" href="/css/standard.css">
-		<link rel="shorcut icon" type="image/x-icon" href="css/img/ico.svg">
+		<link rel="shorcut icon" type="image/x-icon" href="/img/ico/ico.svg">
 
 		<!--KaTeX-->
 		<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/katex.min.css" integrity="sha384-AfEj0r4/OFrOo5t7NnNe46zW/tFgW6x/bCJG8FqQCEo3+Aro6EYUG4+cU+KJWu/X" crossorigin="anonymous">
@@ -22,7 +22,8 @@
 			<%- include('components/presentation') %>
 		</header>
 		<main>
-			<%- include('components/posts_user_profile', {posts: results.posts}) %>
+			<%- include('components/posts') %>
+			<%#- include('components/posts_user_profile', {posts: results.posts}) %>
 			<%#- include('components/posts_user_profile', {is_author, publications}) %>
 		</main>
 		<footer>

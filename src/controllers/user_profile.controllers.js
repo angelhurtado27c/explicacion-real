@@ -25,14 +25,15 @@ userCtrl.user_profile = async (req, res) => {
 	else
 		match.public = true
 
+		/*
 	const posts = await PostModel.aggregate([
 		{$match: match},
 		{$group: {
 			_id: '$type',
 			posts: {
 				$push: {
+					_id: '$_id',
 					authors: '$authors',
-					url: '$url',
 					img_miniature: '$img_miniature',
 					title: '$title',
 					description: '$description',
@@ -40,11 +41,11 @@ userCtrl.user_profile = async (req, res) => {
 			}
 		}}
 	])
-	/*
+	*/
+
 	const posts = await PostModel
 		.find(match)
-		.select('url type img_miniature title description')
-	*/
+		.select('url title description')
 
 	const Nav = {
 		new: auth ? 'new' : 'log_in',
@@ -54,7 +55,7 @@ userCtrl.user_profile = async (req, res) => {
 	}
 	if (!user.job && user.is_author)
 		user.job = '¿Qué temas trata tu obra (tus trabajos)?'
-	res.render('user_profile', {Nav, user, results: {posts}})
+	res.render('user_profile', {Nav, user, posts})
 
 
 

@@ -182,6 +182,7 @@ class SocialNetworks {
 			const a = document.createElement('a')
 			a.innerHTML = net[0]
 			a.href = net[1]
+			a.target = '_blank'
 			$social_networks.appendChild(a)
 			$social_networks.insertBefore(a, $btn_edit)
 		}

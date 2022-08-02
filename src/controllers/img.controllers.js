@@ -20,15 +20,15 @@ module.exports = async (req, res) => {
 				await delete_img(img_name)
 				res.json({})
 		}
-	} catch(e) {
-		res.json({err: e})
-	}
+	} catch(e) { res.json({err: e}) }
 }
 
 async function img_miniature(req, res, img_name) {
 	const url = req.body.url
-	const publication = await PublicationModel.findOne({url})
-	if (!publication) {
+	let publication
+	try {
+		publication = await PublicationModel.findById(url)
+	} catch {
 		await delete_img(img_name)
 		return res.json({}) // Publicación inexistente
 	}

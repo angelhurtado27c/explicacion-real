@@ -1,25 +1,23 @@
 <link rel="stylesheet" href="/css/components/posts.css">
 <link rel="stylesheet" href="/css/components/user_result.css">
 
-<% if (results.users) { %>
-	<div class="center_users">
-		<% for (let user of results.users) { %>
+<div class="posts">
+	<div class="column_posts">
+		<%
+		let users
+		if (posts.posts) {
+			users = posts.users
+			posts = posts.posts
+		}
+		if (users) { for(let user of users) { %>
 			<%- include('user_miniature', {user}) %>
+		<% }} %>
+		<% for (let post of posts) { %>
+			<%- include('post_miniature', {post}) %>
 		<% } %>
 	</div>
-<% } %>
+	<div class="column_posts"></div>
+	<div class="column_posts"></div>
+</div>
 
-<div class="background_white">
-	<div class="center_posts">
-		<% for (let post of results.posts) { %>
-			<%- include('post_miniature', {post}) %>
-		<% } %>
-	</div>
-</div>
-<div class="background_blue">
-	<div class="center_posts">
-		<% for (let post of results.posts) { %>
-			<%- include('post_miniature', {post}) %>
-		<% } %>
-	</div>
-</div>
+<script src="/js/posts.js"></script>

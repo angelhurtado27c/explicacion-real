@@ -83,7 +83,7 @@ router.get('/complete', async (req, res) => {
 
 router.get('/search', async (req, res) => {
 	const query = req.query.q
-	const posts_fields = 'title url description img_miniature'
+	const posts_fields = 'title _id description img_miniature'
 	const users_fields = 'profile_img name job _id'
 	const matches = await search(query, posts_fields, users_fields)
 
@@ -95,7 +95,8 @@ router.get('/search', async (req, res) => {
 		log_in: auth ? 'log_out' : 'log_in',
 		search_value: query.replace(/\+/g, ' ')
 	}
-	res.render('index', {Nav, results: matches})
+
+	res.render('index', {Nav, posts: matches})
 })
 
 module.exports = router

@@ -2,12 +2,14 @@
 
 <section class="presentation">
 	<label for="$file_img_profile">
-		<img
-			id="$imgProfile"
-			src="/uploads_img/<%= user.profile_img %>"
-			alt="<%= user.name %>"
-			class="img_author"
-		>
+		<%# if (user.profile_img) { %>
+			<img
+				id="$imgProfile"
+				src="/uploads_img/<%= user.profile_img %>"
+				alt="<%= user.name %>"
+				class="img_author"
+			>
+		<%# } %>
 	</label>
 	<% if (user.is_author) { %>
 		<p id="$img_err"></p>

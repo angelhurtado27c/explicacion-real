@@ -1,4 +1,4 @@
-.post .options {
+.publication .options {
 	background-color: var(--colorC);
 	max-width: 300px;
 	width: calc(100% - 40px);
@@ -9,7 +9,7 @@
 	margin-bottom: 20px;
 }
 
-.post .options img {
+.publication .options img {
 	border-radius: 7px 7px 0 0;
 	width: 100%;
 	height: 171px;
@@ -17,7 +17,7 @@
 	cursor: pointer;
 }
 
-.post .inputs {
+.publication .inputs {
 	padding: 0 20px;
 	margin-top: 20px;
 	/*
@@ -26,15 +26,15 @@
 	*/
 }
 
-.post .inputs h2 {
+.publication .inputs h2 {
 	text-align: center;
 	/*line-height: 0;*/
 	margin: 0 0 20px 0;
 	padding: 0;
 }
 
-.post .options label,
-.post .options .label {
+.publication .options label,
+.publication .options .label {
 	position: relative;
 	display: block;
 	margin: 20px 0 7px 0;
@@ -91,7 +91,7 @@
 
 
 
-.post [type=file] {
+.publication [type=file] {
 	display: none;
 }
 
@@ -102,7 +102,7 @@
 	width: 100%;
 }
 
-.post #\$img_err {
+.publication #\$img_err {
 	margin: 0 auto;
 	text-align: center;
 	font-style: italic;
@@ -116,11 +116,11 @@
 
 /* --- --- --- Gender --- --- --- */
 
-.post .gender {
+.publication .gender {
 	margin-top: 20px;
 }
 
-.post .gender input {
+.publication .gender input {
 	width: 100%;
 	border: none;
 	border-bottom: 1px solid var(--colorB);
@@ -130,17 +130,17 @@
 	font-size: 16px;
 }
 
-.post .gender ul {
+.publication .gender ul {
 	list-style: none;
 	height: 122px;
 	overflow-y: auto;
 	margin-top: 14px;
 }
 
-.post .gender .check {
+.publication .gender .check {
 	margin: 0 0 14px 0;
 }
 
-.post .gender li:last-child .check {
+.publication .gender li:last-child .check {
 	margin-bottom: 0;
 }

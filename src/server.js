@@ -39,6 +39,7 @@ app.use((req, res, next) => {
 // Routes
 app.use(require('./routes/search.routes'))
 app.use(require('./routes/log_in.routes'))
+app.use(require('./routes/suggestions.routes'))
 app.use(require('./routes/publication.routes'))
 app.use(require('./routes/user_profile.routes'))
 

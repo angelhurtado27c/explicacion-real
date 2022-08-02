@@ -53,9 +53,8 @@ function upload_img_miniature() {
 	})
 }
 
-let previous_url = get_url()
-function upload_data() {return new Promise(async res => {
-	const url = get_url()
+function upload_data() { return new Promise(async res => {
+	let url = window.location.pathname.substr(1)
 
 	const genders = getGendersSelected()
 	if (!genders.length) {
@@ -68,7 +67,6 @@ function upload_data() {return new Promise(async res => {
 		method: 'POST',
 		headers: {'Content-Type': 'application/json'},
 		body: JSON.stringify({
-			previous_url,
 			public: $public.checked,
 			url,
 			title: val_first_element('h1'),
@@ -79,6 +77,8 @@ function upload_data() {return new Promise(async res => {
 	})
 
 	const err = await data_res.json()
+	url = err.id
+	delete err.id
 
 	if (!is_empty(err)) {
 		showErr(err)
@@ -86,10 +86,10 @@ function upload_data() {return new Promise(async res => {
 	}
 
 	$err.style.display = 'none'
-	previous_url = get_url()
 	$publication.innerHTML = $textarea.value
 	render_math()
-	history.pushState(null, '', url)
+	if (url != 'new' && url != window.location.pathname.substr(1))
+		history.pushState(null, '', url)
 	document.getElementsByClassName('delete')[0].style.display = ''
 
 	res(true)
@@ -117,29 +117,8 @@ function showErr(errors) {
 	$err.style.display = 'block'
 }
 
-function get_url() {
-	let url = val_first_element('h1')
 
-	if (!url)
-		return ''
 
-	url = url.toLocaleLowerCase()
-
-	url = url.replace(/[àáâãäå]/g, 'a')
-	url = url.replace(/[èéêë]/g, 'e')
-	url = url.replace(/[ìíîï]/g, 'i')
-	url = url.replace(/ñ/g, 'n')
-	url = url.replace(/[òóôõö]/g, 'o')
-	url = url.replace(/[ùúûü]/g, 'u')
-
-	url = url.replace(/\W+/g, ' ')
-	url = url.replace(/_+/g, ' ')
-	url = url.replace(/^\s+/g, '')
-	url = url.replace(/\s+$/g, '')
-	url = url.replace(/\s+/g, '_')
-
-	return url
-}
 
 function val_first_element(element_name) {
 	const val_textarea = document.createElement('div')
