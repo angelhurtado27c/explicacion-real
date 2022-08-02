@@ -1,6 +1,5 @@
-const PublicationModel = require('../models/Publication')
-const User = require('../models/User')
-const is_empty = require('../helpers/is_empty.helpers')
+const PostModel = require('../models/Publication')
+const UserModel = require('../models/User')
 
 const userCtrl = {}
 
@@ -9,17 +8,23 @@ const userCtrl = {}
 
 userCtrl.user_profile = async (req, res) => {
 	const req_profile = req.params.req_profile
+	const user = await UserModel
+		.findOne({name: req_profile})
+		.select('profile_img name job social_networks')
+	if (!user)
+		return res.redirect('/')
+
 	const auth = req.isAuthenticated()
 	const my_user_name = auth ? req.user.name : null
-	let is_author = false
-	
+
 	const match = {authors: req_profile}
+	user.is_author = false
 	if (auth && my_user_name == req_profile)
-		is_author = true
+		user.is_author = true
 	else
 		match.public = true
 
-	const posts = await PublicationModel.aggregate([
+	const posts = await PostModel.aggregate([
 		{$match: match},
 		{$group: {
 			_id: '$type',
@@ -35,30 +40,26 @@ userCtrl.user_profile = async (req, res) => {
 		}}
 	])
 	/*
-	const posts = await PublicationModel
+	const posts = await PostModel
 		.find(match)
 		.select('url type img_miniature title description')
 	*/
 
-	if (is_empty(posts)) {
-		const user = await User.findOne({name: req_profile})
-		if (!user)
-			return res.redirect('/')
-	}
-
 	const Nav = {
 		new: auth ? 'new' : 'log_in',
 		home: true,
-		my_profile: auth ? (is_author ? false : req.user.name) : false,
+		my_profile: auth ? (user.is_author ? false : req.user.name) : false,
 		log_in: auth ? 'log_out' : 'log_in'
 	}
-	res.render('user_profile', {Nav, is_author, posts})
+	if (!user.job && user.is_author)
+		user.job = '¿Qué temas trata tu obra (tus trabajos)?'
+	res.render('user_profile', {Nav, user, posts})
 
 
 
 
 	/*
-	PublicationModel.create({
+	PostModel.create({
 		authors: ['Ángel', 'David'],
 		type: 'recognition',
 		public: true,

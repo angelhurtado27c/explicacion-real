@@ -1,6 +1,22 @@
-<link rel="stylesheet" href="/css/components/social_networks.css">
+<% if (user.social_networks.length || user.is_author) { %>
+	<link rel="stylesheet" href="/css/components/social_networks.css">
 
-<section class="social_networks" id="$ontact">
-	<a href="https://www.youtube.com/channel/UCb636cFJPna9RYNgfPM2R7Q/videos" target="_black">YouTube</a>
-	<a href="https://www.facebook.com/miguel.hurtado.3110" target="_black">facebook</a>
-</section>
+	<section class="social_networks" id="$social_networks">
+		<% if (user.social_networks.length) { %>
+			<% for( let [net_name, net_url] of user.social_networks ) { %>
+				<a
+					href="<%= net_url %>"
+					target="_blank"
+				><%= net_name %></a>
+			<% } %>
+		<% } %>
+
+		<% if (user.is_author) { %>
+			<button class="btn_ico" id="$btn_edit"><i class="i_edit"></i></button>
+		<% } %>
+	</section>
+
+	<% if (user.is_author) { %>
+		<script src="/js/social_networks.js" type="module"></script>
+	<% } %>
+<% } %>

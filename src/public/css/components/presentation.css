@@ -7,18 +7,62 @@
 }
 
 .presentation .img_author {
+	object-fit: cover;
 	width: 200px;
+	height: 200px;
 	border-radius: 100%;
 	border: 2px solid var(--colorC);
-	margin-bottom: 15px;
+	vertical-align: top;
+}
+
+#\$img_err {
+	display: none;
+	font-style: italic;
+	max-width: 70%;
+}
+
+.presentation [type=file] {
+	display: none;
 }
 
 .presentation h1 {
-	margin-bottom: 5px;
+	margin: 15px 0 5px 0;
 }
 
 .presentation h2 {
 	font-size: 20px;
+}
+
+
+
+
+/* --- --- --- form --- --- --- */
+
+/*
+.presentation form > * {
+	display: block;
+	width: 100%;
+}
+*/
+
+.presentation form input {
+	border: 1px solid var(--colorC);
+	border-right: none;
+	border-radius: 7px 0 0 7px;
+	font-size: 16px;
+	background-color: transparent;
+	color: var(--colorC);
+	font-weight: bold;
+	outline: none;
+	padding: 7px 14px;
+}
+
+.presentation form [type=submit] {
+	background-color: var(--colorB);
+	cursor: pointer;
+	border: 1px solid var(--colorC);
+	border-left: none;
+	border-radius: 0 7px 7px 0;
 }
 
 

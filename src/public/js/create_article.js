@@ -26,19 +26,18 @@ function upload_img_miniature() {
 			return res({err: 'not select img'})
 
 		const img = new FormData()
+		img.append('destination', 'img_miniature')
 		img.append("url", window.location.pathname.substr(1))
 		img.append("img", $upload_img.files[0])
 
 		const img_res = await fetch('/upload_img', {
 			method: 'POST',
-			headers: {
-				'enctype': 'multipart/form-data',
-			},
+			headers: {'enctype': 'multipart/form-data'},
 			body: img
 		})
 
 		const img_was_uploaded = await img_res.json()
-		const img_url = img_was_uploaded.img_miniature
+		const img_url = img_was_uploaded.img
 		const err = img_was_uploaded.err
 
 		if (img_url) {
@@ -59,9 +58,7 @@ function upload_data() {
 
 		const data_res = await fetch('/save_update_publication', {
 			method: 'POST',
-			headers: {
-				'Content-Type': 'application/json'
-			},
+			headers: {'Content-Type': 'application/json'},
 			body: JSON.stringify({
 				type: $type.value,
 				public: $public.value == '0' ? false : true,

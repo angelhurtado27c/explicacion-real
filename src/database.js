@@ -8,5 +8,5 @@ connect(DB_URI, {
 	useUnifiedTopology: true,
 	useCreateIndex: true // habilita unique
 })
-	.then(db => {console.log('db connected')})
+	.then(db => {console.log('Mongo connected')})
 	.catch(err => {console.log(err)})

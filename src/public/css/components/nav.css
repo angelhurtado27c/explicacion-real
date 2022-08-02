@@ -27,7 +27,15 @@ nav {
 	left: 0;
 	width: 100%;
 	height: 34px;
+	background: no-repeat fixed center center;
+	background-size: cover;
+	background: url('https://okdiario.com/img/2020/05/20/la-nasa-cree-que-hay-un-universo-paralelo-en-el-que-el-tiempo-va-hacia-atras.jpg');
+	/*
 	background-color: var(--colorA);
+	background: url('https://oedimdecor.com/wp-content/uploads/2019/03/fotomural-universo-estrellas1-1333x1000.jpg');
+	background: url('https://1.bp.blogspot.com/-xtdWYb9Ikd0/T3s_BOAILXI/AAAAAAAAC-4/wT8pnx83hgc/s1600/El-Universo.jpg');
+	background: url('https://curiosidades.com/wp-content/uploads/2013/04/universe-space-nebula-stars-x-px-hd.jpg');
+	*/
 	padding: 5px 0;
 	border-bottom: 1px solid var(--colorC);
 }
@@ -132,7 +140,8 @@ nav button {
 	.i_new,
 	.i_return,
 	.i_search,
-	.i_user {
+	.i_user,
+	.i_home {
 		height: 20px;
 		max-width: 26px;
 	}

@@ -2,18 +2,18 @@ const passport = require('passport')
 const UserModel = require('../models/User')
 const is_empty = require('../helpers/is_empty.helpers')
 
-const userCtrl = {}
+const logInCtrl = {}
 
 
 
 
 // Log in
 
-userCtrl.render_log_in = (req, res) => {
+logInCtrl.render_log_in = (req, res) => {
 	res.render('log_in')
 }
 
-userCtrl.log_in = passport.authenticate('local', {
+logInCtrl.log_in = passport.authenticate('local', {
 	successRedirect: '/',
 	failureRedirect: '/log_in',
 	failureFlash: true
@@ -24,11 +24,11 @@ userCtrl.log_in = passport.authenticate('local', {
 
 // Sign in
 
-userCtrl.render_sign_in = (req, res) => {
+logInCtrl.render_sign_in = (req, res) => {
 	res.render('sign_in', {user_name: '', err: ''})
 }
 
-userCtrl.sign_in = async (req, res) => {
+logInCtrl.sign_in = async (req, res) => {
 	const {user_name, pass, confirm_pass} = req.body
 
 	const err = {}
@@ -59,7 +59,7 @@ userCtrl.sign_in = async (req, res) => {
 
 // Log out
 
-userCtrl.log_out = (req, res) => {
+logInCtrl.log_out = (req, res) => {
 	const same_site = req.headers.referer
 	req.logout()
 	res.redirect(same_site)
@@ -68,4 +68,4 @@ userCtrl.log_out = (req, res) => {
 
 
 
-module.exports = userCtrl
+module.exports = logInCtrl

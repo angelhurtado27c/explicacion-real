@@ -4,7 +4,9 @@ const bcrypt = require('bcrypt')
 const UserSchema = new Schema({
 	name: {type: String, required: true, unique: true},
 	pass: {type: String, required: true},
-	img: {type: String}
+	profile_img: {type: String},
+	job: {type: Array},
+	social_networks: {type: Array}
 }, {timestamps: true})
 
 UserSchema.methods.encryptPass = async pass => {

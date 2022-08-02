@@ -1,8 +1,8 @@
 const router = require('express').Router()
 const {if_auth_next} = require('../helpers/auth.helpers')
+const upload_img_miniature = require('../controllers/img.controllers')
 const {
 	new_publication,
-	upload_img_miniature,
 	get_publication,
 	save_update_publication,
 	delete_publication

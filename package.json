@@ -8,6 +8,9 @@
     "start": "node src/index",
     "dev": "nodemon src/index"
   },
+  "nodemonConfig": {
+    "ignore": ["./src/public/*"]
+  },
   "keywords": [],
   "author": "",
   "license": "ISC",

@@ -1,7 +1,24 @@
 <link rel="stylesheet" href="/css/components/presentation.css">
 
 <section class="presentation">
-	<img id="$imgProfile" src="/img/Miguel.png" alt="Miguel Ángel Hurtado Benavides" class="img_author">
-	<h1>Miguel Ángel Hurtado Benavides</h1>
-	<h2>Profesor de Matemáticas</h2>
+	<label for="$file_img_profile">
+		<img
+			id="$imgProfile"
+			src="/uploads_img/<%= user.profile_img %>"
+			alt="<%= user.name %>"
+			class="img_author"
+		>
+	</label>
+	<% if (user.is_author) { %>
+		<p id="$img_err"></p>
+		<input type="file" id="$file_img_profile">
+	<% } %>
+	<h1 class=""><%= user.name %></h1>
+	<% if (user.job) { %>
+		<h2 class="editable" id="$job"><%= user.job %></h2>
+	<% } %>
 </section>
+
+<% if (user.is_author) { %>
+	<script src="/js/img_author.js" type="module"></script>
+<% } %>

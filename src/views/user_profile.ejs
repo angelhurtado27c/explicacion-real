@@ -19,14 +19,14 @@
 	<body>
 		<header>
 			<%- include('components/nav') %>
-			<%- include('components/presentation') %>
+			<%- include('components/presentation', {user}) %>
 		</header>
 		<main>
-			<%- include('components/posts_user_profile', {is_author, posts}) %>
+			<%- include('components/posts_user_profile', {user, posts}) %>
 			<%#- include('components/posts_user_profile', {is_author, publications}) %>
 		</main>
 		<footer>
-			<%- include('components/social_networks') %>
+			<%- include('components/social_networks', {user}) %>
 		</footer>
 	</body>
 </html>

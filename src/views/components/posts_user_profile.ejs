@@ -6,7 +6,7 @@
 	<section class="<%= background_color %>">
 		<h2><%= posts_by_type._id %></h2>
 		<div class="center_posts">
-			<% if (is_author) { %>
+			<% if (user.is_author) { %>
 				<form action="/new" method="POST" class="add">
 					<input
 						type="hidden"

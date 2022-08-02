@@ -1,16 +1,120 @@
 .social_networks {
 	background-color: var(--colorB);
 	padding: 20px;
-	text-align: center;
+	display: flex;
+	justify-content: center;
+	flex-wrap: wrap;
 }
 
 .social_networks a {
 	margin: 10px;
 	text-decoration: none;
 	font-weight: bold;
-	display: inline-block;
+	display: block;
 	background-color: var(--colorC);
 	color: var(--colorB);
 	padding: 10px;
 	border-radius: 7px;
+}
+
+
+
+
+/* --- --- --- edit --- ---- --- */
+
+.social_networks .btn_ico {
+	background-color: transparent;
+	border: none;
+	margin: 10px;
+}
+
+.social_networks i {
+	height: 26px;
+	max-width: 26px;
+	vertical-align: top;
+	cursor: pointer;
+	outline: none;
+}
+
+.social_networks .i_edit { content: url('/img/ico/new.svg'); }
+
+@media screen and (min-width: 680px) {
+	.social_networks i {
+		height: 20px;
+		max-width: 26px;
+	}
+}
+
+
+
+
+/* --- --- --- form --- --- --- */
+
+.social_networks form {
+	padding-top: 20px;
+	background-color: var(--colorC);
+	border-radius: 7px;
+	max-width: 680px;
+	width: 100%;
+}
+
+.social_networks form input,
+.social_networks form button {
+	outline: none;
+	display: block;
+	margin: auto;
+	background-color: transparent;
+	padding: 7px 14px;
+	border: none;
+	border-bottom: 1px solid var(--colorB);
+	font-size: 16px;
+	color: var(--colorB);
+	width: calc(100% - 40px);
+}
+
+.social_networks form [type=url] {
+	margin-bottom: 20px;
+}
+
+.social_networks form button {
+	float: left;
+	width: 50%;
+	border-radius: 0 0 0 7px;
+	background-color: var(--colorC);
+	color: var(--colorA);
+	cursor: pointer;
+	font-weight: bold;
+	padding: 10px 0;
+}
+
+.social_networks form [type=submit] {
+	float: right;
+	width: 50%;
+	border-radius: 0 0 7px 0;
+	background-color: var(--colorA);
+	color: var(--colorC);
+	cursor: pointer;
+	font-weight: bold;
+	padding: 10px 0;
+}
+
+.social_networks form .err {
+	width: calc(100% - 40px);
+	margin: 0 auto 20px auto;
+	background-color: var(--colorB);
+	border-radius: 7px;
+	color: var(--colorC);
+	font-size: 16px;
+	line-height: 25px;
+}
+
+.social_networks form p {
+	padding: 20px;
+}
+
+.tremble {animation: tremble .2s linear 2;}
+@keyframes tremble {
+	25% {transform: rotate(-3deg);}
+	75% {transform: rotate(3deg);}
+	100% {transform: rotate(0);}
 }

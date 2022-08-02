@@ -2,19 +2,16 @@ const PublicationModel = require('../models/Publication')
 const is_the_author = require('../helpers/is_the_author.helpers')
 const get_url = require('../helpers/get_url.helpers')
 const is_empty = require('../helpers/is_empty.helpers')
-const {
-	upload_img,
-	delete_img
-} = require('../helpers/img.helpers')
+const {delete_img} = require('../helpers/img.helpers')
 
-const userCtrl = {}
+const postCtrl = {}
 
 
 
 
 // New
 
-userCtrl.new_publication = (req, res) => {
+postCtrl.new_publication = (req, res) => {
 	let content = '<h1>\nHola :D, coloca tu título aquí\n</h1>'
 	content += '\n\n<p>\nY con esta esta etiqueta puedes agregar párrafos\n</p>'
 	content += '\n\n<p>\nMás párrafos\n</p>'
@@ -36,7 +33,7 @@ userCtrl.new_publication = (req, res) => {
 
 // Save and Update
 // separar save de update
-userCtrl.save_update_publication = async (req, res) => {
+postCtrl.save_update_publication = async (req, res) => {
 	const publication = req.body
 
 	// validate post content
@@ -86,47 +83,9 @@ async function validate_post_content(publication) {
 
 
 
-// Upload img miniature
-// dar primero credenciales y luego envia la img, modificar front
-userCtrl.upload_img_miniature = async (req, res) => {
-	try {
-		const img_name = await upload_img(req, res)
-
-		const url = req.body.url
-		const publication = await PublicationModel.findOne({url})
-		if (!publication) {
-			await delete_img(img_name)
-			return res.json({}) // Publicación inexistente
-		}
-
-		const is_author = is_the_author(req.user.name, publication)
-		if (!is_author) {
-			await delete_img(img_name)
-			return res.redirect('/')
-		}
-
-		try {
-			const previous_img_miniature = publication.img_miniature
-			publication.img_miniature = img_name
-			await publication.save()
-			await delete_img(previous_img_miniature)
-		} catch(e) {
-			await delete_img(img_name)
-			return res.json({err: 'Fallo en la base de datos'})
-		}
-
-		res.json({img_miniature: publication.img_miniature})
-	} catch(e) {
-		res.json({err: e})
-	}
-}
-
-
-
-
 // Delete
 
-userCtrl.delete_publication = async (req, res) => {
+postCtrl.delete_publication = async (req, res) => {
 	const url_publication = req.body.url_article
 	const publication = await PublicationModel.findOne({
 		url: url_publication
@@ -152,7 +111,7 @@ userCtrl.delete_publication = async (req, res) => {
 
 // Get
 
-userCtrl.get_publication = async (req, res) => {
+postCtrl.get_publication = async (req, res) => {
 	const url_publication = req.params.url_publication
 	const publication = await PublicationModel.findOne({
 		url: url_publication
@@ -183,4 +142,4 @@ userCtrl.get_publication = async (req, res) => {
 
 
 
-module.exports = userCtrl
+module.exports = postCtrl

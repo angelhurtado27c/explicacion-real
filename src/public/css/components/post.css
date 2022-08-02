@@ -94,7 +94,7 @@ body {
 	display: none;
 }
 
-.post .inputs p {
+.post .inputs #\$img_err {
 	margin: 0 auto;
 	text-align: center;
 	font-style: italic;
