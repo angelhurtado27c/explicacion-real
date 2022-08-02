@@ -20,34 +20,34 @@ userCtrl.index = async (req, res) => {
 	res.render('index', {auth, publications})
 }
 
-userCtrl.upload_img = (req, res) => {
+userCtrl.upload_img_miniature = (req, res) => {
 	multer_upload_img(req, res, async err => {
-		let upload_error = ''
+		const was_uploaded = {}
 
 		if (err instanceof MulterError) {
 			// A Multer error occurred when uploading.
 			if (err.code == 'LIMIT_FILE_SIZE')
-				upload_error = 'limit file size'
+				was_uploaded.err = 'Máximo 1MB'
 			else
-				upload_error = 'unknown'
+				was_uploaded = 'unknown'
 		} else if (err == 'bad format')
-			upload_error = err
+			was_uploaded.err = 'Formato no válido'
 		else if (err)
-			upload_error = 'Unknown error'
+			was_uploaded.err = 'Ha ocurrido un error desconocido'
 
-		if (upload_error)
-			return res.send(upload_error)
+		if (was_uploaded.err)
+			return res.json(was_uploaded)
 
 		const url = req.body.url
 		const publication = await PublicationModel.findOne({url})
 		if (!publication)
-			return res.send('undefined publication')
+			return res.json({err: 'Publicación inexistente'})
 
 		const img_name = req.file.filename
 		publication.img_miniature = img_name
-		publication.save()
+		await publication.save()
 
-		res.send(upload_error)
+		res.json({img_miniature: publication.img_miniature})
 	})
 }
 

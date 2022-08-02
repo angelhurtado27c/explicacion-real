@@ -5,7 +5,7 @@ const {
 	log_in,
 	log_out,
 	new_publication,
-	upload_img,
+	upload_img_miniature,
 	get_publication,
 	save_update_publication,
 	delete_publication
@@ -17,7 +17,7 @@ router.get('/iniciar_sesion', render_log_in)
 router.post('/iniciar_sesion', log_in)
 router.get('/log_out', log_out)
 
-router.post('/upload_img', upload_img)
+router.post('/upload_img', upload_img_miniature)
 
 router.get('/new', new_publication)
 router.post('/new', new_publication)

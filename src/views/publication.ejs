@@ -29,37 +29,49 @@
 		<main>
 			<div>
 				<% if (auth) { %>
-					<div class="type">
-						<label for="$type">Tipo de publicación</label>
-						<select id="$type">
-							<% if (publication.type == 'article') { %>
-								<option value="article">Artículo</option>
-								<option value="recognition">Reconosimiento</option>
-							<% } else { %>
-								<option value="recognition">Reconosimiento</option>
-								<option value="article">Artículo</option>
-							<% } %>
-						</select>
-					</div>
-					<div class="public">
-						<label for="$public">Publicación</label>
-						<select id="$public">
-							<% if (publication.public) { %>
-								<option value="1">Pública</option>
-								<option value="0">Privada</option>
-							<% } else { %>
-								<option value="0">Privada</option>
-								<option value="1">Pública</option>
-							<% } %>
-						</select>
-					</div>
-					<form action="/upload_img" method="POST" enctype="multipart/form-data">
-					</form>
-					<div class="upload_img">
+					<div class="options">
 						<label for="$upload_img">
-							<span class="label">Imágen para la miniatura</span>
-							<span class="btn_upload_img">Selecionar</span></label>
-						<input type="file" name="img" id="$upload_img">
+							<img
+								src="/<%= publication.img_miniature ? `uploads_img/${publication.img_miniature}` : 'img/img_miniature_default.jpg' %>"
+								alt="<%= publication.title %>"
+								id="$miniature_img"
+							>
+						</label>
+						<div class="inputs">
+							<h2>Configuración</h2>
+							<div class="upload_img">
+								<label for="$upload_img">
+									<span class="label">Miniatura</span>
+									<span class="input">Selecionar</span>
+								</label>
+								<p id="$img_err"></p>
+								<input type="file" name="img" id="$upload_img">
+							</div>
+							<div class="type">
+								<label for="$type">Categoría</label>
+								<select id="$type">
+									<% if (publication.type == 'article') { %>
+										<option value="article">Artículo</option>
+										<option value="recognition">Reconosimiento</option>
+									<% } else { %>
+										<option value="recognition">Reconosimiento</option>
+										<option value="article">Artículo</option>
+									<% } %>
+								</select>
+							</div>
+							<div class="public">
+								<label for="$public">Publicación</label>
+								<select id="$public">
+									<% if (publication.public) { %>
+										<option value="1">Pública</option>
+										<option value="0">Privada</option>
+									<% } else { %>
+										<option value="0">Privada</option>
+										<option value="1">Pública</option>
+									<% } %>
+								</select>
+							</div>
+						</div>
 					</div>
 					<div
 						class="delete"
@@ -79,7 +91,7 @@
 						</div>
 					</div>
 					<div class="textarea">
-						<textarea id="$textarea" autofocus><%- publication.content %></textarea>
+						<textarea id="$textarea"><%- publication.content %></textarea>
 					</div>
 				<% } %>
 				<article id="$publication"><%- publication.content %></article>

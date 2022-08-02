@@ -5,8 +5,8 @@ passport.use(new LocalStrategy({
 	usernameField: 'email',
 	passwordField: 'pass'
 }, (email, pass, done) => {
-	if (email == 'user@email.com') {
-		if (pass == 'pass')
+	if (email == 'mhurtado2009@hotmail.com') {
+		if (pass == 'Chocolate')
 			return done(null, {email: email})
 		else
 			return done(null, false, {message: 'Contraseña incorrecta'})

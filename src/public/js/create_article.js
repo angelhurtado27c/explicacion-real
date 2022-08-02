@@ -7,11 +7,10 @@ async function save() {
 	this.onclick = null
 	this.innerHTML = 'Guardando...'
 
-	const data_was_uploaded = await upload_data()
+	await upload_data()
 	const publication_exists = window.location.pathname.substr(1) != 'new'
-	if (publication_exists) {
-		const img_was_uploaded = await upload_img_miniature()
-	}
+	if (publication_exists)
+		await upload_img_miniature()
 
 	$save.innerHTML = 'Guardar'
 	this.onclick = save
@@ -20,7 +19,7 @@ async function save() {
 function upload_img_miniature() {
 	return new Promise(async res => {
 		if (!$upload_img.files[0])
-			return res('not select image')
+			return res({err: 'not select img'})
 
 		const img = new FormData()
 		img.append("url", window.location.pathname.substr(1))
@@ -34,7 +33,17 @@ function upload_img_miniature() {
 			body: img
 		})
 
-		res(await img_res.text())
+		const img_was_uploaded = await img_res.json()
+		const img_url = img_was_uploaded.img_miniature
+		const err = img_was_uploaded.err
+
+		if (img_url) {
+			$miniature_img.src = `/uploads_img/${img_url}`
+			$img_err.innerHTML = ''
+		} else if (err && err != 'not select img')
+			$img_err.innerHTML = img_was_uploaded.err
+
+		res(img_was_uploaded)
 	})
 }
 
