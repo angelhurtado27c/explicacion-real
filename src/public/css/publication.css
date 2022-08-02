@@ -1,0 +1,450 @@
+:root {
+	--colorA: #2B4162;
+	--colorB: #307351;
+	--colorC: #F6F0ED;
+	--colorD: #370C06;
+}
+
+* {
+	margin: 0;
+	padding: 0;
+	box-sizing: border-box;
+	font-family: Arial, Helvetica, sans-serif;
+}
+
+body {
+	background-color: var(--colorA);
+}
+
+textarea,
+button,
+select {
+	outline: none;
+}
+
+button,
+select {
+	cursor: pointer;
+}
+
+.btn_upload_img,
+button {
+	transition: all .3s ease;
+}
+
+
+
+
+/* --- --- header --- --- */
+
+nav {
+	padding: 20px;
+	text-align: center;
+	max-width: 1000px;
+	margin: auto;
+	font-size: 16px;
+}
+
+nav a {
+	color: var(--colorC);
+	display: inline-block;
+	margin: 0 0 7px 7px;
+}
+
+
+
+
+/* --- --- --- main --- --- --- */
+
+/* type */
+
+.type,
+.public {
+	max-width: 1000px;
+	padding: 0 20px;
+	margin: 0 auto 20px auto;
+}
+
+label,
+.label {
+	color: var(--colorC);
+	display: inline-block;
+	margin: 0 7px 7px 0;
+}
+
+select {
+	font-size: 14px;
+	background-color: var(--colorA);
+	color: var(--colorC);
+	font-weight: bold;
+	border: none;
+	padding: 5px 7px;
+	border: 1px solid var(--colorC);
+	border-radius: 7px;
+}
+
+/* upload_img */
+
+#\$upload_img {
+	display: none;
+}
+
+.upload_img {
+	width: calc(100% - 40px);
+	max-width: 960px;
+	margin: 0 auto 20px auto;
+}
+
+.btn_upload_img {
+	display: inline-block;
+	padding: 6px 10px;
+	border-radius: 7px;
+	border: 1px solid var(--colorC);
+	cursor: pointer;
+	font-weight: bold;
+}
+
+.btn_upload_img:hover {
+	background-color: var(--colorC);
+	color: var(--colorA);
+}
+
+/* delete*/
+
+.delete {
+	max-width: 960px;
+	width: calc(100% - 40px);
+	margin: auto;
+	margin-bottom: 20px;
+	text-align: right;
+}
+
+.delete button {
+	border: none;
+	padding: 10px;
+	border-radius: 7px;
+	font-weight: bold;
+	font-size: 16px;
+}
+
+#\$delete {
+	border: 1px solid var(--colorC);
+	background-color: var(--colorA);
+	color: var(--colorC);
+	width: 119px;
+}
+
+#\$delete:hover {
+	background-color: var(--colorC);
+	color: var(--colorA);
+}
+
+#\$delete_msg {
+	display: none;
+	position: fixed;
+	z-index: 3;
+	top: 0;
+	bottom: 0;
+	left: 0;
+	right: 0;
+	background-color: #2B4162ee;
+	align-items: center;
+	justify-content: center;
+}
+
+#\$delete_msg.appear_delete_msg {
+	animation: .3s ease appear_opacity;
+}
+
+#\$delete_msg.disappear_delete_msg {
+	animation: .3s ease disappear_opacity forwards;
+}
+
+@keyframes appear_opacity {
+	from {opacity: 0;}
+	to {opacity: 1;}
+}
+
+@keyframes disappear_opacity {
+	from {opacity: 1;}
+	to {opacity: 0;}
+}
+
+#\$delete_msg div {
+	border-radius: 7px;
+	background-color: var(--colorC);
+	text-align: center;
+	padding: 20px;
+	max-width: 341px;
+	width: calc(100% - 40px);
+}
+
+#\$delete_msg p {
+	color: var(--colorD);
+	margin: 10px 0;
+}
+
+#\$delete_msg button {
+	padding: 10px;
+	width: 60px;
+	background-color: var(--colorB);
+	color: var(--colorC);
+	margin: 10px 5px 0 5px;
+}
+
+#\$delete_msg button:hover {
+	background-color: var(--colorC);
+	color: var(--colorB);
+}
+
+/* article */
+
+main article,
+main textarea {
+	max-width: 1000px;
+	background-color: var(--colorC);
+	color: var(--colorD);
+	border-radius: 7px;
+	padding: 20px;
+}
+
+main h1,
+main h2,
+main h3 {
+	color: var(--colorB);
+}
+main h1 { font-size: 35px; margin: 40px 0; text-align: center; }
+main h2 { font-size: 27px; margin: 30px 0; }
+main h3 { font-size: 20px; margin: 20px 0; }
+
+main p {
+	font-size: 16px;
+	line-height: 25px;
+	margin: 20px 0;
+}
+
+main img {
+	display: block;
+	max-width: 100%;
+	border-radius: 7px;
+	margin: 0 auto;
+}
+
+/* textarea */
+
+.textarea {
+	background-color: var(--colorC);
+	max-width: 1000px;
+	margin: 0 auto 20px auto;
+	padding: 20px 0;
+	position: sticky;
+	top: 0;
+	z-index: 1;
+	box-shadow: 0 0 16px black;
+	border-radius: 7px;
+}
+
+main textarea {
+	padding: 0 20px;
+	border-radius: 0;
+	height: 40vh;
+	font-size: 16px;
+	line-height: 25px;
+	display: block;
+	width: 100%;
+	word-wrap: break-word;
+	resize: none;
+	border: none;
+}
+
+/* .edit */
+
+.edit {
+	max-width: 1000px;
+	margin: 10px auto 0 auto;
+	position: sticky;
+	z-index: 2;
+	bottom: 10px;
+	text-align: right;
+	padding-right: 10px;
+}
+
+.edit button {
+	border: none;
+	border-radius: 7px;
+	background-color: var(--colorB);
+	color: var(--colorC);
+	padding: 10px;
+	margin-right: 10px;
+	width: 119px;
+	font-weight: bold;
+	font-size: 16px;
+	outline: none;
+	transition: all .3s ease;
+}
+
+.edit button:hover {
+	background-color: var(--colorC);
+	color: var(--colorB);
+}
+
+/* err */
+
+.err {
+	display: none;
+	margin: 10px auto 0 auto;
+	background-color: var(--colorB);
+	color: var(--colorC);
+	padding: 20px 0;
+	border-radius: 7px;
+	position: sticky;
+	z-index: 2;
+	bottom: 58px;
+	left: 20px;
+	max-width: 960px;
+	width: calc(100% - 40px);
+}
+
+.list_container {
+	max-height: 46px;
+	overflow: auto;
+	padding: 0 20px;
+}
+
+.err ul {
+	margin-left: 20px;
+}
+
+.err li {
+	margin-top: 10px;
+}
+
+.err li:first-child {
+	margin-top: 0;
+}
+
+/* math */
+
+.parent-katex-display {
+	max-width: 700px;
+	width: 100%;
+	display: block;
+	margin: auto;
+	overflow-y: auto;
+}
+
+
+
+
+/* --- --- footer --- --- */
+
+/* suggestions */
+
+.suggestions {
+	padding: 80px 20px 40px 20px;
+}
+
+.suggestions > h2 {
+	text-align: center;
+	font-size: 30px;
+	margin-bottom: 40px;
+	color: var(--colorC);
+}
+
+.suggestion {
+	background-color: var(--colorC);
+	color: var(--colorD);
+	max-width: 300px;
+	border-radius: 7px;
+	overflow: hidden;
+	margin: 0 auto 40px auto;
+}
+
+.suggestions img {
+	width: 100%;
+	height: 171px;
+	object-fit: cover;
+}
+
+.suggestion h2 a {
+	display: block;
+	padding: 20px 0 10px 0;
+	margin: 0 20px;
+	text-decoration: none;
+	color: var(--colorB);
+	border-bottom: 1px solid var(--colorB);
+}
+
+.suggestion p {
+	padding: 10px 20px 20px 20px;
+	font-size: 16px;
+	line-height: 25px;
+}
+
+
+
+
+/* social networks */
+
+.social_networks {
+	background-color: var(--colorB);
+	padding: 20px;
+	text-align: center;
+}
+
+.social_networks a {
+	margin: 10px;
+	text-decoration: none;
+	font-weight: bold;
+	display: inline-block;
+	background-color: var(--colorC);
+	color: var(--colorB);
+	padding: 10px;
+	border-radius: 7px;
+}
+
+
+
+
+@media screen and ( min-width: 720px ) {
+	/* --- --- header --- --- */
+
+	nav {
+		text-align: right;
+	}
+
+	h1 {
+		font-size: 35px;
+	}
+
+	/* --- --- --- main --- --- --- */
+
+	.suggestions > div {
+		width: 1020px;
+		margin: auto;
+		display: flex;
+		flex-flow: row wrap;
+	}
+
+	main article,
+	main textarea {
+		margin: 0 auto;
+	}
+
+
+
+	@media screen and ( max-width: 1059px ) {
+		nav {
+			width: calc(100% - 40px);
+			padding: 20px;
+		}
+
+		main {
+			padding: 0 20px;
+		}
+
+		.suggestions > div {
+			width: 680px;
+		}
+	}
+}

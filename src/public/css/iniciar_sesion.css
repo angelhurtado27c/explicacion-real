@@ -1,0 +1,66 @@
+:root {
+	--colorA: #2B4162;
+	--colorB: #307351;
+	--colorC: #F6F0ED;
+	--colorD: #370C06;
+}
+
+* {
+	margin: 0;
+	padding: 0;
+	box-sizing: border-box;
+	font-family: Arial, Helvetica, sans-serif;
+}
+
+
+
+
+/* --- --- form --- --- */
+
+body {
+	background-color: var(--colorA);
+	position: absolute;
+	top: 0;
+	bottom: 0;
+	left: 0;
+	right: 0;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+}
+
+form {
+	width: 300px;
+	background-color: var(--colorC);
+	padding: 20px;
+	border-radius: 7px;
+}
+
+input {
+	background-color: transparent;
+	display: block;
+	width: 100%;
+	padding: 15px;
+	border: none;
+	border-bottom: 1px solid var(--colorB);
+	color: var(--colorD);
+	font-family: Arial, Helvetica, sans-serif;
+	font-size: 16px;
+	margin-bottom: 20px;
+	outline: none;
+}
+
+p {
+	text-align: right;
+	color: var(--colorA);
+	margin-bottom: 20px;
+}
+
+[type=submit] {
+	border: none;
+	margin: 0;
+	background-color: var(--colorB);
+	color: var(--colorC);
+	border-radius: 7px;
+	cursor: pointer;
+}
