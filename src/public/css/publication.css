@@ -287,10 +287,11 @@ main textarea {
 	bottom: 48px;
 	text-align: right;
 	padding-right: 10px;
+	height: 0;
 }
 
 .edit button {
-	float: right;
+	/*float: right;*/
 	border: none;
 	border-radius: 7px;
 	background-color: var(--colorB);

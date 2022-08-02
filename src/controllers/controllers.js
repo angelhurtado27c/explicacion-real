@@ -1,10 +1,10 @@
 const passport = require('passport')
 const PublicationModel = require('../models/Publication')
-const {multer_upload_img} = require('../helpers/helpers')
-const MulterError = require('multer').MulterError
 const {
 	get_url,
-	is_empty
+	is_empty,
+	upload_img,
+	delete_img
 } = require('../helpers/helpers')
 
 const userCtrl = {}
@@ -20,35 +20,31 @@ userCtrl.index = async (req, res) => {
 	res.render('index', {auth, publications})
 }
 
-userCtrl.upload_img_miniature = (req, res) => {
-	multer_upload_img(req, res, async err => {
-		const was_uploaded = {}
-
-		if (err instanceof MulterError) {
-			// A Multer error occurred when uploading.
-			if (err.code == 'LIMIT_FILE_SIZE')
-				was_uploaded.err = 'Máximo 1MB'
-			else
-				was_uploaded = 'unknown'
-		} else if (err == 'bad format')
-			was_uploaded.err = 'Formato no válido'
-		else if (err)
-			was_uploaded.err = 'Ha ocurrido un error desconocido'
-
-		if (was_uploaded.err)
-			return res.json(was_uploaded)
+userCtrl.upload_img_miniature = async (req, res) => {
+	try {
+		const img_name = await upload_img(req, res)
 
 		const url = req.body.url
 		const publication = await PublicationModel.findOne({url})
-		if (!publication)
+		if (!publication) {
+			await delete_img(img_name)
 			return res.json({err: 'Publicación inexistente'})
+		}
 
-		const img_name = req.file.filename
-		publication.img_miniature = img_name
-		await publication.save()
+		try {
+			const previous_img_miniature = publication.img_miniature
+			publication.img_miniature = img_name
+			await publication.save()
+			await delete_img(previous_img_miniature)
+		} catch(e) {
+			await delete_img(img_name)
+			return res.json({err: 'Fallo en la base de datos'})
+		}
 
 		res.json({img_miniature: publication.img_miniature})
-	})
+	} catch(e) {
+		return res.json({err: e})
+	}
 }
 
 userCtrl.log_out = (req, res) => {
