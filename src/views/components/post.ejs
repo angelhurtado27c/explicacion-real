@@ -2,50 +2,7 @@
 
 <div class="post">
 	<% if (is_author) { %>
-		<div class="options">
-			<label for="$upload_img">
-				<img
-					src="/<%= publication.img_miniature ? `uploads_img/${publication.img_miniature}` : 'img/img_miniature_default.jpg' %>"
-					alt="<%= publication.title %>"
-					id="$miniature_img"
-				>
-			</label>
-			<div class="inputs">
-				<h2>Configuración</h2>
-				<div class="upload_img">
-					<label for="$upload_img">
-						<span class="label">Miniatura</span>
-						<span class="input">Selecionar</span>
-					</label>
-					<p id="$img_err"></p>
-					<input type="file" name="img" id="$upload_img">
-				</div>
-				<div class="type">
-					<label for="$type">Categoría</label>
-					<select id="$type">
-						<% if (publication.type == 'article') { %>
-							<option value="article">Artículo</option>
-							<option value="recognition">Reconosimiento</option>
-						<% } else { %>
-							<option value="recognition">Reconosimiento</option>
-							<option value="article">Artículo</option>
-						<% } %>
-					</select>
-				</div>
-				<div class="public">
-					<label for="$public">Publicación</label>
-					<select id="$public">
-						<% if (publication.public) { %>
-							<option value="1">Pública</option>
-							<option value="0">Privada</option>
-						<% } else { %>
-							<option value="0">Privada</option>
-							<option value="1">Pública</option>
-						<% } %>
-					</select>
-				</div>
-			</div>
-		</div>
+		<%- include('post_options') %>
 		<div
 			class="delete"
 			<% if (!publication.id) { %>
@@ -55,9 +12,7 @@
 			<button id="$delete">Eliminar</button>
 			<div id="$delete_msg">
 				<div>
-					<p>
-						¿Estas seguro de borrar esta publicación?
-					</p>
+					<p>¿Estas seguro de borrar esta publicación?</p>
 					<button id="$delete_no">No</button>
 					<button id="$delete_ok">Si</button>
 				</div>

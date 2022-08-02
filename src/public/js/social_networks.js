@@ -1,4 +1,6 @@
 import {is_empty} from './modules/is_empty.js'
+import tremble from './modules/tremble.js'
+import scrollTo from './modules/scrollTo.js'
 
 class SocialNetworks {
 	constructor() {
@@ -121,7 +123,7 @@ class SocialNetworks {
 					} else
 						net_url_empty++
 					if (net_url_empty > 1)
-						throw 'necesito la url de tu perfil'
+						throw 'Necesito la url de tu perfil'
 					change = 'net_name'
 					data.push([net_name, net_url])
 			}
@@ -145,7 +147,6 @@ class SocialNetworks {
 	}
 
 	update_social_networks = async e => {
-		clearTimeout(this.t_tremble)
 		e.preventDefault()
 		this.t_tremble
 		const form = e.target.parentNode
@@ -154,14 +155,8 @@ class SocialNetworks {
 			data = this.form_to_array(new FormData(form))
 		} catch(e) {
 			this.err.innerHTML = `<p>${e}</p>`
-			scroll({
-				top: document.body.offsetHeight,
-				behavior: "smooth"
-			})
-			this.err.classList.remove('tremble')
-			this.t_tremble = setTimeout(()=>{
-				this.err.classList.add('tremble')
-			}, 12)
+			scrollTo(this.err)
+			tremble(this.err)
 			return
 		}
 

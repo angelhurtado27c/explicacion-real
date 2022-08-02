@@ -1,5 +1,7 @@
 import {render_math} from './modules/render_math.js'
 import {} from './modules/delete_publication.js'
+import scrollTo from './modules/scrollTo.js'
+import tremble from './modules/tremble.js'
 
 $save.onclick = save
 
@@ -52,50 +54,67 @@ function upload_img_miniature() {
 }
 
 let previous_url = get_url()
-function upload_data() {
-	return new Promise(async res => {
-		const url = get_url()
+function upload_data() {return new Promise(async res => {
+	const url = get_url()
 
-		const data_res = await fetch('/save_update_publication', {
-			method: 'POST',
-			headers: {'Content-Type': 'application/json'},
-			body: JSON.stringify({
-				type: $type.value,
-				public: $public.value == '0' ? false : true,
-				previous_url,
-				url,
-				title: val_first_element('h1'),
-				description: val_first_element('p'),
-				content: $textarea.value
-			})
+	const genders = getGendersSelected()
+	if (!genders.length) {
+		showErr({'gender': 'Indicame al menos un género 😉'})
+		scrollTo($gender_search)
+		return res(false)
+	}
+
+	const data_res = await fetch('/save_update_publication', {
+		method: 'POST',
+		headers: {'Content-Type': 'application/json'},
+		body: JSON.stringify({
+			previous_url,
+			public: $public.checked,
+			url,
+			title: val_first_element('h1'),
+			description: val_first_element('p'),
+			content: $textarea.value,
+			genders: getGendersSelected()
 		})
-
-		const err = await data_res.json()
-
-		if (!is_empty(err)) {
-			show_err(err)
-			return res(false)
-		}
-
-		$err.style.display = 'none'
-		previous_url = get_url()
-		$publication.innerHTML = $textarea.value
-		render_math()
-		history.pushState(null, '', url)
-		document.getElementsByClassName('delete')[0].style.display = ''
-
-		res(true)
 	})
+
+	const err = await data_res.json()
+
+	if (!is_empty(err)) {
+		showErr(err)
+		return res(false)
+	}
+
+	$err.style.display = 'none'
+	previous_url = get_url()
+	$publication.innerHTML = $textarea.value
+	render_math()
+	history.pushState(null, '', url)
+	document.getElementsByClassName('delete')[0].style.display = ''
+
+	res(true)
+}) }
+
+function getGendersSelected() {
+	const gender_list_element = $gender_list
+		.querySelectorAll('input:checked + span + span')
+
+	const selected_genres = []
+	for (let gender of gender_list_element)
+		selected_genres.push(gender.innerText)
+
+	return selected_genres
 }
 
-function show_err(errors) {
-	$err.style.display = 'block'
+function showErr(errors) {
 	$list_err.innerHTML = ''
 	for (let err in errors) {
 		const li_err = document.createElement('li')
 		li_err.innerHTML = errors[err]
 		$list_err.appendChild(li_err)
 	}
+	tremble($err)
+	$err.style.display = 'block'
 }
 
 function get_url() {

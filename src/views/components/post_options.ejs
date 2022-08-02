@@ -1,0 +1,70 @@
+<link rel="stylesheet" href="/css/components/post_options.css">
+
+<div class="options">
+	<label for="$upload_img">
+		<img
+			src="/<%= publication.img_miniature ? `uploads_img/${publication.img_miniature}` : 'img/img_miniature_default.jpg' %>"
+			alt="<%= publication.title %>"
+			id="$miniature_img"
+		>
+	</label>
+
+	<div class="inputs">
+		<h2>Configuración</h2>
+
+		<div class="upload_img">
+			<p id="$img_err"></p>
+			<input type="file" name="img" id="$upload_img">
+		</div>
+
+		<div class="public">
+			<label class="check">
+				<input type="checkbox" id="$public"
+					<% if (publication.public) { %>
+						<%= 'checked="check"' %>
+					<% } %>
+				>
+				<span class="checkmark"></span>
+				<span class="check_text">Hacer público</span>
+			</label>
+		</div>
+
+		<div class="gender">
+			<input type="search" id="$gender_search" placeholder="Agregar género">
+			<ul id="$gender_list">
+				<li>
+					<label class="check">
+						<input type="checkbox" id="$addGender">
+						<span class="checkmark"></span>
+						<span class="check_text"></span>
+					</label>
+				</li>
+
+				<% let genresWorks = {} %>
+				<% if (user && user.genresWorks) { %>
+					<% genresWorks = user.genresWorks %>
+				<% } %>
+
+				<% const id_publication = String(publication.id) %>
+				<% Object.keys(genresWorks).forEach(gender => { %>
+					<li>
+						<label class="check">
+							<input type="checkbox"
+								<% if ( genresWorks[gender][id_publication] === null ) { %>
+									<%= 'checked="check"' %>
+								<% } %>
+							>
+							<span class="checkmark"></span>
+							<span class="check_text">
+								<%= gender %>
+							</span>
+						</label>
+					</li>
+				<% }) %>
+			</ul>
+		</div>
+
+	</div>
+</div>
+
+<script src="/js/gender.js" type="module"></script>

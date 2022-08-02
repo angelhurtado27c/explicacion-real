@@ -3,6 +3,7 @@ const is_the_author = require('../helpers/is_the_author.helpers')
 const get_url = require('../helpers/get_url.helpers')
 const is_empty = require('../helpers/is_empty.helpers')
 const {delete_img} = require('../helpers/img.helpers')
+const validate_genres = require('../helpers/validate_genres.helpers')
 
 const postCtrl = {}
 
@@ -17,7 +18,10 @@ postCtrl.new_publication = (req, res) => {
 	content += '\n\n<p>\nMás párrafos\n</p>'
 
 	const publication = {content}
-	publication.type = req.body.type ? req.body.type : 'article'
+	// *****************
+	// ***** type ******
+	// *****************
+	// publication.type = req.body.type ? req.body.type : 'article'
 
 	const Nav = {
 		new: 'new',
@@ -25,7 +29,12 @@ postCtrl.new_publication = (req, res) => {
 		my_profile: req.user.name,
 		log_in: 'log_out'
 	}
-	res.render('publication', {Nav, is_author: true, publication})
+	res.render('publication', {
+		Nav,
+		is_author: true,
+		publication,
+		user: req.user
+	})
 }
 
 
@@ -41,9 +50,11 @@ postCtrl.save_update_publication = async (req, res) => {
 	if (!is_empty(err))
 		return res.json(err)
 
-	const publication_db = await PublicationModel.findOne({
-		url: publication.previous_url
-	})
+	const genders = publication.genders
+	delete publication.genders
+
+	let publication_db = await PublicationModel
+		.findOne({url: publication.previous_url})
 
 	if (publication_db) {
 		const is_author = is_the_author(req.user.name, publication_db)
@@ -52,11 +63,56 @@ postCtrl.save_update_publication = async (req, res) => {
 		await publication_db.updateOne(publication)
 	} else {
 		publication.authors = [req.user.name]
-		await PublicationModel.create(publication)
+		publication_db = await PublicationModel.create(publication)
 	}
+
+	await updateUserWorkGenres(
+		req.user,
+		genders,
+		publication_db.id
+	)
 
 	res.json({})
 }
+
+async function updateUserWorkGenres(user, genders, id_publication) {
+	let obj = {}
+
+	if (user.genresWorks) {
+		obj = user.genresWorks
+
+		Object.keys(obj).forEach(gender => {
+			if (obj[gender][id_publication] === null) {
+				const index = genders.indexOf(gender)
+				if (index > -1)
+					genders.splice(index, 1)
+				else {
+					if (Object.keys(obj[gender]).length > 1)
+						delete obj[gender][id_publication]
+					else
+						delete obj[gender]
+				}
+			}
+		})
+
+		genders.forEach(gender => {
+			if (!obj[gender])
+				obj[gender] = {}
+			obj[gender][id_publication] = null
+		})
+	} else {
+		id_publication = String(id_publication)
+		genders.forEach(gender => {
+			obj[gender] = {}
+			obj[gender][id_publication] = null
+		})
+	}
+
+	await user.updateOne({genresWorks: obj})
+}
+
+
+
 
 async function validate_post_content(publication) {
 	if (publication.url != get_url(publication.title))
@@ -76,6 +132,9 @@ async function validate_post_content(publication) {
 		if (await PublicationModel.findOne({url: publication.url}))
 			error.url = 'El titulo ya está en uso'
 	}
+
+	if (!validate_genres(publication.genders))
+		error.genders = 'Portate bien  ; b'
 
 	return error
 }
@@ -127,14 +186,18 @@ postCtrl.get_publication = async (req, res) => {
 
 	const is_author = is_the_author(user_name, publication)
 	if (publication.public || is_author) {
-
 		const Nav = {
 			new: auth ? 'new' : 'log_in',
 			home: true,
 			my_profile: auth ? req.user.name : false,
 			log_in: auth ? 'log_out' : 'log_in'
 		}
-		return res.render('publication', {Nav, is_author, publication})
+		return res.render('publication', {
+			Nav,
+			is_author,
+			publication,
+			user: req.user
+		})
 	}
 	res.redirect('/')
 }

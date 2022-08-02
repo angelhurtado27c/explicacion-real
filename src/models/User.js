@@ -5,7 +5,8 @@ const UserSchema = new Schema({
 	name: {type: String, required: true, unique: true},
 	pass: {type: String, required: true},
 	profile_img: {type: String},
-	job: {type: Array},
+	job: {type: String},
+	genresWorks: {type: Object}, // Array
 	social_networks: {type: Array}
 }, {timestamps: true})
 

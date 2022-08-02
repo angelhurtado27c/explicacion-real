@@ -1,10 +1,8 @@
-function get_url(txt) {
-	let url = txt
-
+function get_url(url) {
 	if (!url)
 		return ''
 
-	url = url.toLocaleLowerCase()
+	url = url.toLowerCase()
 
 	url = url.replace(/[àáâãäå]/g, 'a')
 	url = url.replace(/[èéêë]/g, 'e')

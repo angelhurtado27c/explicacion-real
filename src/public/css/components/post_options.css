@@ -1,0 +1,135 @@
+.post .options {
+	background-color: var(--colorC);
+	max-width: 300px;
+	width: calc(100% - 40px);
+	margin: auto;
+	border-radius: 7px;
+	color: var(--colorD);
+	padding-bottom: 20px;
+	margin-bottom: 20px;
+}
+
+.post .options img {
+	border-radius: 7px 7px 0 0;
+	width: 100%;
+	height: 171px;
+	object-fit: cover;
+	cursor: pointer;
+}
+
+.post .inputs {
+	padding: 0 20px;
+	margin-top: 20px;
+	/*
+	height: 249px;
+	overflow-y: auto;
+	*/
+}
+
+.post .inputs h2 {
+	text-align: center;
+	/*line-height: 0;*/
+	margin: 0 0 20px 0;
+}
+
+.post .options label,
+.post .options .label {
+	display: block;
+	margin: 20px 0 7px 0;
+}
+
+
+
+
+/* checkbox */
+
+.check {
+	display: flex !important;
+	align-items: center;
+}
+
+.check_text {
+	margin-left: 7px;
+	width: 88%;
+}
+.check span { cursor: pointer; }
+.check input { display: none; }
+
+.checkmark {
+	width: 20px;
+	height: 20px;
+	border-radius: 7px;
+	border: 1px solid var(--colorB);
+	background-color: var(--colorC);
+	transition: all .3s ease;
+}
+
+.check input:hover:not(:checked) + .checkmark,
+.check input:not(:checked).checkmark:hover {
+	background-color: var(--colorB);
+	opacity: .7;
+}
+
+.check input:checked + .checkmark { background-color: var(--colorB); }
+.check input:checked + .checkmark::after {
+	content: '';
+	display: block;
+	width: 5px;
+	height: 8px;
+	border: solid var(--colorC);
+	border-width: 0 3px 3px 0;
+	position: relative;
+	top: 2px;
+	left: 5px;
+	transform: rotate(45deg);
+}
+
+.bold { font-weight: bold; }
+
+
+
+
+.post [type=file] {
+	display: none;
+}
+
+.post .inputs #\$img_err {
+	margin: 0 auto;
+	text-align: center;
+	font-style: italic;
+	max-width: 70%;
+}
+
+
+
+
+/* --- --- --- Gender --- --- --- */
+
+.post .gender {
+	margin-top: 20px;
+}
+
+.post .gender input {
+	width: 100%;
+	border: none;
+	border-bottom: 1px solid var(--colorB);
+	background-color: transparent;
+	padding: 7px 10px;
+	outline: none;
+	font-size: 16px;
+}
+
+.post .gender ul {
+	list-style: none;
+	height: 122px;
+	overflow-y: auto;
+	margin-top: 14px;
+}
+
+.post .gender .check {
+	margin: 0 0 14px 0;
+}
+
+.post .gender li:last-child .check {
+	margin-bottom: 0;
+}

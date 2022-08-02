@@ -111,10 +111,3 @@
 .social_networks form p {
 	padding: 20px;
 }
-
-.tremble {animation: tremble .2s linear 2;}
-@keyframes tremble {
-	25% {transform: rotate(-3deg);}
-	75% {transform: rotate(3deg);}
-	100% {transform: rotate(0);}
-}
