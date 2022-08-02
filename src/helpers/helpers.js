@@ -67,7 +67,9 @@ const dir_imgs = `${__dirname}/../public/uploads_img`
 
 helpers.delete_img = (img_name) => {
 	return new Promise(res => {
-		unlink(`${dir_imgs}/${img_name}`, err => {res()})
+		if (img_name)
+			return unlink(`${dir_imgs}/${img_name}`, err => {res()})
+		res()
 	})
 }
 

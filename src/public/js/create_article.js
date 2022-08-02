@@ -40,6 +40,7 @@ function upload_img_miniature() {
 		if (img_url) {
 			$miniature_img.src = `/uploads_img/${img_url}`
 			$img_err.innerHTML = ''
+			$upload_img.value = ''
 		} else if (err && err != 'not select img')
 			$img_err.innerHTML = img_was_uploaded.err
 

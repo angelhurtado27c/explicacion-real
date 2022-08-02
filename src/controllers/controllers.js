@@ -1,5 +1,8 @@
 const passport = require('passport')
-const PublicationModel = require('../models/Publication')
+const {
+	PublicationModel,
+	delete_publication
+ } = require('../models/Publication')
 const {
 	get_url,
 	is_empty,
@@ -157,13 +160,7 @@ userCtrl.save_update_publication = async (req, res) => {
 }
 
 userCtrl.delete_publication = async (req, res) => {
-	const was_deleted = await PublicationModel.deleteOne({
-		url: req.body.url_article
-	})
-
-	if (was_deleted.n)
-		return res.send('ok')
-	res.send('fail')
+	res.send(await delete_publication(req.body.url_article))
 }
 
 module.exports = userCtrl
