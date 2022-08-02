@@ -1,0 +1,74 @@
+/* --- --- --- posts-container --- --- --- */
+
+.background_white {
+	background-color: var(--colorC);
+}
+
+.background_blue {
+	background-color: var(--colorA);
+}
+
+.center_posts {
+	padding: 20px 0;
+	max-width: 1020px;
+	width: 100%;
+	margin: auto;
+	display: flex;
+	flex-flow: row wrap;
+	justify-content: center;
+}
+
+
+
+
+/* -- --- --- post --- --- --- */
+
+.post {
+	margin: 20px;
+	max-width: 300px;
+	width: 100%;
+	height: 463px;
+	border-radius: 7px;
+	overflow: hidden;
+}
+.background_white .post { background-color: var(--colorA); }
+.background_blue .post { background-color: var(--colorC); }
+
+article img {
+	width: 100%;
+	height: 171px;
+	object-fit: cover;
+	vertical-align: top;
+}
+
+.content {
+	margin-top: 20px;
+	padding: 0 20px;
+	height: 249px;
+	overflow-y: auto;
+}
+
+.post_title {
+	display: block;
+	font-size: 20px;
+	line-height: 25px;
+	padding-bottom: 20px;
+	
+	text-decoration: none;
+}
+.background_white .post_title {
+	color: var(--colorC);
+	border-bottom: 1px solid var(--colorC);
+}
+.background_blue .post_title {
+	color: var(--colorB);
+	border-bottom: 1px solid var(--colorB);
+}
+
+.post_description {
+	padding-top: 20px;
+	color: var(--colorD);
+	line-height: 25px;
+}
+.background_white .post_description { color: var(--colorC); }
+.background_blue .post_description { color: var(--colorD); }

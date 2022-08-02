@@ -1,0 +1,45 @@
+<link rel="stylesheet" href="/css/components/publications.css">
+<div class="background_white">
+	<div class="center_posts">
+		<% for ( let publication of publications ) { %>
+			<article class="post">
+				<a href="/<%= publication.url %>">
+					<img
+						<% if (publication.img_miniature) { %>
+							src="/uploads_img/<%= publication.img_miniature %>"
+						<% } else { %>
+							src="/img/img_miniature_default.jpg"
+						<% } %>
+						alt="<%= publication.title %>"
+					>
+				</a>
+				<div class="content">
+					<h2><a class="post_title" href="/<%= publication.url %>"><%= publication.title %></a></h2>
+					<p class="post_description"><%= publication.description %></p>
+				</div>
+			</article>
+		<% } %>
+	</div>
+</div>
+<div class="background_blue">
+	<div class="center_posts">
+		<% for ( let publication of publications ) { %>
+			<article class="post">
+				<a href="/<%= publication.url %>">
+					<img
+						<% if (publication.img_miniature) { %>
+							src="/uploads_img/<%= publication.img_miniature %>"
+						<% } else { %>
+							src="/img/img_miniature_default.jpg"
+						<% } %>
+						alt="<%= publication.title %>"
+					>
+				</a>
+				<div class="content">
+					<h2><a class="post_title" href="/<%= publication.url %>"><%= publication.title %></a></h2>
+					<p class="post_description"><%= publication.description %></p>
+				</div>
+			</article>
+		<% } %>
+	</div>
+</div>

@@ -7,5 +7,3 @@ export function render_math() {
 	for (let e of katex_display)
 		e.parentNode.className = 'parent-katex-display'
 }
-
-render_math()

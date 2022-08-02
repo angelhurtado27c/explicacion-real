@@ -9,7 +9,7 @@ const PublicationModel = require('../models/Publication')
 router.get('/', async (req, res) => {
 	const publications = await PublicationModel
 		.find({public: true})
-		.limit(3)
+		.limit(6)
 		.select('title url description img_miniature')
 
 	res.render('index', {publications})
