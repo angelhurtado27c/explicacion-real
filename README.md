@@ -11,3 +11,5 @@ Las explicaciones con tecnicismos son confusas para los usuarios iniciantes en e
 ## Instrucciones
 
 Lo puedes ver desde https://explicacion-real.herokuapp.com (aunque el proyecto aún se encuentra en desarrollo).
+
+<br><br>
